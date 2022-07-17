@@ -8,4 +8,7 @@ import com.basilgames.android.jackal.Tile
 @Database(entities = [ Tile::class ], version = 1)
 @TypeConverters(TileTypeConverters::class)
 abstract class TileDatabase: RoomDatabase() {
+
+    abstract fun tileDao(): TileDataAccessObject
+
 }
