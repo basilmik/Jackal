@@ -1,52 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity"
+>
 
-<com.basilgames.android.jackal.ZoomableView
-    android:id="@+id/field_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    <com.basilgames.android.jackal.ZoomableView
+        android:id="@+id/field_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
 
-</com.basilgames.android.jackal.ZoomableView>
-
-
-
-<ImageView
-
-android:layout_width="100dp"
-android:layout_height="100dp"
-android:layout_marginTop="450dp"
-android:layout_marginLeft="150dp"
-android:src="@drawable/ball" />
-<Button
-android:id="@+id/addview"
-android:layout_width="100dp"
-android:layout_height="wrap_content"
-android:backgroundTint="@color/teal_200"
-android:layout_marginTop="550dp"
-android:layout_marginLeft="150dp"
-android:text="Add Image View"
-android:textColor="@color/black" />
-
-<Button
-android:id="@+id/addgrid"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginLeft="150dp"
-android:layout_marginTop="650dp"
-
-android:backgroundTint="#80CBC4"
-android:gravity="center"
-
-android:text="Add Grid"
-android:textColor="@color/black" />
+    </com.basilgames.android.jackal.ZoomableView>
 
 
-    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="150dp"
+        android:src="@drawable/ball"
+        />
+
+    <Button
+        android:id="@+id/addview"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_200"
+        android:layout_marginTop="550dp"
+        android:layout_marginLeft="150dp"
+        android:text="Add Image View"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:id="@+id/addgrid"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="620dp"
+        android:backgroundTint="#80CBC4"
+        android:gravity="center"
+        android:text="Add Grid"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:id="@+id/savegrid"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="670dp"
+        android:backgroundTint="@color/purple_200"
+        android:gravity="center"
+        android:text="save"
+        android:textColor="@color/black"
+        />
+
+    <Button
+        android:id="@+id/loadgrid"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="670dp"
+        android:backgroundTint="@color/purple_200"
+        android:gravity="center"
+        android:text="load"
+        android:textColor="@color/black"
+        />
+</RelativeLayout>

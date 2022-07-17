@@ -1,6 +1,7 @@
 package com.basilgames.android.jackal
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.basilgames.android.jackal.database.TileDatabase
 import java.lang.IllegalStateException
@@ -21,9 +22,11 @@ class TileRepository private constructor(context: Context) {
     private val tileDao = database.tileDao()
     private val executor = Executors.newSingleThreadExecutor()
 
-    fun getTiles(): List<Tile> = tileDao.getTiles()
+    fun getTiles(): LiveData<List<Tile>> = tileDao.getTiles()
 
-    fun getTile(id: UUID): Tile? = tileDao.getTile(id)
+    fun getTile(id: UUID): LiveData<Tile?> = tileDao.getTile(id)
+
+
 
     fun updateTile(tile: Tile)
     {
@@ -31,6 +34,14 @@ class TileRepository private constructor(context: Context) {
             tileDao.updateTile(tile)
         }
     }
+
+    fun deleteTiles()
+    {
+        executor.execute{
+            tileDao.deleteAllTiles()
+        }
+    }
+
     fun addTile(tile: Tile)
     {
         executor.execute{

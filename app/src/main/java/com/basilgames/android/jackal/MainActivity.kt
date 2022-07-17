@@ -2,11 +2,17 @@ package com.basilgames.android.jackal
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.basilgames.android.jackal.database.TileDatabase
 
+
+private const val TAG = "MainActivity"
 
 var tileIdArray: Array<Array<Int>> = Array(13) { Array(13) { _ -> 0 } }
 
@@ -18,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var addViewButton: Button
     private lateinit var addGridButton: Button
+    private lateinit var saveButton: Button
+    private lateinit var loadButton: Button
 
     var count = 1
 
@@ -29,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         tableView = findViewById(R.id.field_view)
         addViewButton = findViewById(R.id.addview)
         addGridButton = findViewById(R.id.addgrid)
+        saveButton = findViewById(R.id.savegrid)
+        loadButton = findViewById(R.id.loadgrid)
 
         addGridButton.setOnClickListener { // initialising new layout
             tileField = GridLayout(this)
@@ -59,10 +69,43 @@ class MainActivity : AppCompatActivity() {
             count++
         }
 
+        saveButton.setOnClickListener {
+            /*val db : TileRepository = TileRepository.get()
+            val tile: Tile = Tile()
+            tile.imageRes = R.drawable.ball
+            tile.isFaceUp = false
+            db.addTile(tile)*/
+            val db : TileRepository = TileRepository.get()
+            val tileListLiveData = db.getTiles()
+            db.deleteTiles()
+
+            tileListLiveData.observe(this,
+                Observer { tiles ->
+                    tiles?.let{
+                        Toast.makeText(applicationContext,"db size is : ${tiles.size}", Toast.LENGTH_LONG).show()
+                    }
+                })
+
+
+        }
+
+        loadButton.setOnClickListener{
+            val db : TileRepository = TileRepository.get()
+            val tileListLiveData = db.getTiles()
+            tileListLiveData.observe(this,
+            Observer { tiles ->
+                tiles?.let{
+                    Toast.makeText(applicationContext,"db size is : ${tiles.size}", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+
     }
 
 
     private fun create() {
+        val db : TileRepository = TileRepository.get()
+
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
                 val row = GridLayout.spec(rowIndex, 1)
@@ -78,12 +121,17 @@ class MainActivity : AppCompatActivity() {
                 tileIdArray[columnIndex][rowIndex] = tileView.id
                 val den = resources.displayMetrics.density
                 tileField.addView( tileView, (100 * den).toInt(), (100 * den).toInt() )
+                var tile: Tile = Tile()
+
+                tile.imageRes = R.drawable.ball
+                tile.isFaceUp = false
+                db.addTile(tile)
+                //Log.d(TAG, "id = ${tile.id}")
 
             }
         }
 
     }
-
 
 }
 

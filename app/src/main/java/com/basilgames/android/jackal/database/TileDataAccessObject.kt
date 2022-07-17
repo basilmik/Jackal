@@ -1,9 +1,7 @@
 package com.basilgames.android.jackal.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.basilgames.android.jackal.Tile
 import java.util.*
 
@@ -12,15 +10,18 @@ import java.util.*
 interface TileDataAccessObject {
 
     @Query("SELECT * FROM tile")
-    fun getTiles(): List<Tile>
+    fun getTiles(): LiveData<List<Tile>>
 
 
     @Query("SELECT * FROM tile WHERE id=(:id)")
-    fun getTile(id: UUID): Tile?
+    fun getTile(id: UUID): LiveData<Tile?>
 
     @Update
     fun updateTile(tile: Tile)
 
     @Insert
     fun addTile(tile: Tile)
+
+    @Query("DELETE FROM tile")
+    fun deleteAllTiles()
 }
