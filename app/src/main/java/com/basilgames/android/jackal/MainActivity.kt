@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var addViewButton: Button
     private lateinit var addGridButton: Button
-    private lateinit var saveButton: Button
+    private lateinit var deleteButton: Button
     private lateinit var loadButton: Button
 
     var count = 1
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         tableView = findViewById(R.id.field_view)
         addViewButton = findViewById(R.id.addview)
         addGridButton = findViewById(R.id.addgrid)
-        saveButton = findViewById(R.id.savegrid)
+        deleteButton = findViewById(R.id.deletegrid)
         loadButton = findViewById(R.id.loadgrid)
 
         addGridButton.setOnClickListener { // initialising new layout
@@ -69,35 +69,38 @@ class MainActivity : AppCompatActivity() {
             count++
         }
 
-        saveButton.setOnClickListener {
-            /*val db : TileRepository = TileRepository.get()
-            val tile: Tile = Tile()
-            tile.imageRes = R.drawable.ball
-            tile.isFaceUp = false
-            db.addTile(tile)*/
+        deleteButton.setOnClickListener {
             val db : TileRepository = TileRepository.get()
-            val tileListLiveData = db.getTiles()
+
+            val tileList = db.getTiles2()
+
+            Toast.makeText(applicationContext,"db size is : ${tileList.size}", Toast.LENGTH_LONG).show()
             db.deleteTiles()
 
+            /*val tileListLiveData = db.getTiles()
             tileListLiveData.observe(this,
                 Observer { tiles ->
                     tiles?.let{
-                        Toast.makeText(applicationContext,"db size is : ${tiles.size}", Toast.LENGTH_LONG).show()
+                        //Toast.makeText(applicationContext,"db size is : ${tiles.size}", Toast.LENGTH_LONG).show()
                     }
-                })
+                })*/
 
 
         }
 
         loadButton.setOnClickListener{
             val db : TileRepository = TileRepository.get()
-            val tileListLiveData = db.getTiles()
+            val tileList = db.getTiles2()
+
+            Toast.makeText(applicationContext,"db size is : ${tileList.size}", Toast.LENGTH_LONG).show()
+
+            /*val tileListLiveData = db.getTiles()
             tileListLiveData.observe(this,
             Observer { tiles ->
                 tiles?.let{
                     Toast.makeText(applicationContext,"db size is : ${tiles.size}", Toast.LENGTH_LONG).show()
                 }
-            })
+            })*/
         }
 
     }

@@ -17,12 +17,14 @@ class TileRepository private constructor(context: Context) {
         context.applicationContext,
         TileDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    ).allowMainThreadQueries().build()
 
     private val tileDao = database.tileDao()
     private val executor = Executors.newSingleThreadExecutor()
 
     fun getTiles(): LiveData<List<Tile>> = tileDao.getTiles()
+
+    fun getTiles2(): List<Tile> = tileDao.getTiles2()
 
     fun getTile(id: UUID): LiveData<Tile?> = tileDao.getTile(id)
 

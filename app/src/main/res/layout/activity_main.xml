@@ -50,20 +50,20 @@ tools:context=".MainActivity"
         />
 
     <Button
-        android:id="@+id/savegrid"
-        android:layout_width="80dp"
+        android:id="@+id/deletegrid"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="670dp"
         android:backgroundTint="@color/purple_200"
         android:gravity="center"
-        android:text="save"
+        android:text="delete"
         android:textColor="@color/black"
         />
 
     <Button
         android:id="@+id/loadgrid"
-        android:layout_width="80dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="220dp"
         android:layout_marginTop="670dp"

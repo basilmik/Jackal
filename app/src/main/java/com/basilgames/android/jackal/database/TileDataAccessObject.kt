@@ -12,6 +12,8 @@ interface TileDataAccessObject {
     @Query("SELECT * FROM tile")
     fun getTiles(): LiveData<List<Tile>>
 
+    @Query("SELECT * FROM tile")
+    fun getTiles2(): List<Tile>
 
     @Query("SELECT * FROM tile WHERE id=(:id)")
     fun getTile(id: UUID): LiveData<Tile?>
