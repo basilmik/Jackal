@@ -27,6 +27,10 @@ class TileView: androidx.appcompat.widget.AppCompatImageView {
         imageRes = _imageRes
     }
 
+    fun setFaceUp(_faceUp: Boolean)
+    {
+        faceUp = _faceUp
+    }
     fun getImageRes(): Int {
         return imageRes
     }

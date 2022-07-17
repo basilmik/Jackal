@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.basilgames.android.jackal.Tile
 
-@Database(entities = [ Tile::class ], version = 1)
+@Database(entities = [ Tile::class ], version = 2)
 @TypeConverters(TileTypeConverters::class)
 abstract class TileDatabase: RoomDatabase() {
 

@@ -225,7 +225,7 @@ public class ZoomableView extends ViewGroup {
         mOnTouchEventWorkingArray[0] = event.getX();
         mOnTouchEventWorkingArray[1] = event.getY();
 
-        //Toast.makeText(getContext().getApplicationContext(), "mode = "+ mode, Toast.LENGTH_LONG).show();
+
         if (mode != DRAG2)
             elementTouched = getWhichChildTouched(mOnTouchEventWorkingArray[0], mOnTouchEventWorkingArray[1]);
         if (elementTouched == 0)
@@ -291,6 +291,8 @@ public class ZoomableView extends ViewGroup {
                             //Toast.makeText(getContext().getApplicationContext(), "i " + i + " j " + j /*+ " id " +  gridLayout[tileIdArray[i][j]]*/, Toast.LENGTH_LONG).show();
                             int tileTouchedId = gettileField(j, i);
                             TileView tileTouched = findViewById(tileTouchedId);
+
+
                             tileTouched.flipTile();
                         }
                     movedFlag = false;

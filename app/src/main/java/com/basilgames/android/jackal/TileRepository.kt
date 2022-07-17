@@ -9,7 +9,7 @@ import java.util.*
 import java.util.concurrent.Executors
 
 
-private const val DATABASE_NAME = "tile-database"
+private const val DATABASE_NAME = "tile-database2"
 
 class TileRepository private constructor(context: Context) {
 
