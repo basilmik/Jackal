@@ -1,8 +1,9 @@
-package com.basilgames.android.jackal
+package com.basilgames.android.jackal.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import com.basilgames.android.jackal.database.Tile
 import com.basilgames.android.jackal.database.TileDatabase
 import java.lang.IllegalStateException
 import java.util.*

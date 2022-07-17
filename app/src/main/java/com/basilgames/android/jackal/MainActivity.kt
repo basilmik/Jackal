@@ -7,6 +7,8 @@ import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.basilgames.android.jackal.database.Tile
+import com.basilgames.android.jackal.database.TileRepository
 
 
 private const val TAG = "MainActivity"
@@ -160,7 +162,6 @@ class MainActivity : AppCompatActivity() {
                 if (tileView.isFaceUp()) {
                     Toast.makeText(applicationContext,"FLIP ${tile.col} ${tile.row}", Toast.LENGTH_LONG).show()
                     tileView.setImageResource(tile.imageRes)
-                    //tileView.flipTile()
                 }
 
                 tileView.id = ImageView.generateViewId()
@@ -168,10 +169,10 @@ class MainActivity : AppCompatActivity() {
 
                 val row = GridLayout.spec(tile.row, 1)
                 val column = GridLayout.spec(tile.col, 1)
-                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, column)
+                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(column, row)
                 val den = resources.displayMetrics.density
-                gridLayoutParam.height= (100 * den).toInt()
-                gridLayoutParam.width= (100 * den).toInt()
+                gridLayoutParam.height = (100 * den).toInt()
+                gridLayoutParam.width = (100 * den).toInt()
                 tileField.addView(tileView, gridLayoutParam)
 
 

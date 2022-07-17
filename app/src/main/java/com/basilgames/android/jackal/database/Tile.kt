@@ -1,4 +1,4 @@
-package com.basilgames.android.jackal
+package com.basilgames.android.jackal.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

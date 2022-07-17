@@ -368,7 +368,7 @@ public class ZoomableView extends ViewGroup {
 
                     if (mode == DRAG2)
                     {
-                        //bringChildToFront(child);
+
                         float[] values = new float[9];
                         matrix.getValues(values);
 
