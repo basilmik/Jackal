@@ -31,6 +31,11 @@ class TileView: androidx.appcompat.widget.AppCompatImageView {
         return imageRes
     }
 
+    fun setFaceUp(_faceUp: Boolean)
+    {
+        faceUp = _faceUp
+    }
+
     public fun isFaceUp():Boolean
     {
         return faceUp
@@ -39,7 +44,8 @@ class TileView: androidx.appcompat.widget.AppCompatImageView {
     fun flipTile()
     {
         faceUp = !faceUp
-        if (faceUp) setImageResource(imageRes)
+        if (faceUp)
+            setImageResource(imageRes)
         else
             setImageResource(R.drawable.tile_cover)
     }

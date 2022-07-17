@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var addViewButton: Button
     private lateinit var addGridButton: Button
-    private lateinit var saveButton: Button
+    private lateinit var deleteButton: Button
     private lateinit var loadButton: Button
 
     var count = 1
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         tableView = findViewById(R.id.field_view)
         addViewButton = findViewById(R.id.addview)
         addGridButton = findViewById(R.id.addgrid)
-        saveButton = findViewById(R.id.savegrid)
+        deleteButton = findViewById(R.id.deletegrid)
         loadButton = findViewById(R.id.loadgrid)
 
         addGridButton.setOnClickListener { // initialising new layout
@@ -69,16 +69,18 @@ class MainActivity : AppCompatActivity() {
             count++
         }
 
-        saveButton.setOnClickListener {
-            /*val db : TileRepository = TileRepository.get()
-            val tile: Tile = Tile()
-            tile.imageRes = R.drawable.ball
-            tile.isFaceUp = false
-            db.addTile(tile)*/
+        deleteButton.setOnClickListener {
             val db : TileRepository = TileRepository.get()
-            val tileListLiveData = db.getTiles()
-            db.deleteTiles()
+            val tileList = db.getTiles()
+            //.makeText(applicationContext,"db size is : ${tileList.size}", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,"db size is : HERE", Toast.LENGTH_LONG).show()
+            //db.deleteTiles()
+        }
 
+        loadButton.setOnClickListener{
+            val db : TileRepository = TileRepository.get()
+           // val tileList = db.getTiles()
+            val tileListLiveData = db.getTiles2()
             tileListLiveData.observe(this,
                 Observer { tiles ->
                     tiles?.let{
@@ -86,50 +88,75 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
 
-
-        }
-
-        loadButton.setOnClickListener{
-            val db : TileRepository = TileRepository.get()
-            val tileListLiveData = db.getTiles()
-            tileListLiveData.observe(this,
-            Observer { tiles ->
-                tiles?.let{
-                    Toast.makeText(applicationContext,"db size is : ${tiles.size}", Toast.LENGTH_LONG).show()
-                }
-            })
+            //Toast.makeText(applicationContext,"db size is : ${tileList.size}", Toast.LENGTH_LONG).show()
         }
 
     }
 
 
     private fun create() {
-        val db : TileRepository = TileRepository.get()
+        //var dbSize: Int = 0
 
-        for (columnIndex in 0..12) {
-            for (rowIndex in 0..12) {
-                val row = GridLayout.spec(rowIndex, 1)
-                val column = GridLayout.spec(columnIndex, 1)
+        val db: TileRepository = TileRepository.get()
+        val tileList = db.getTiles()
+        val den = resources.displayMetrics.density
+        if (tileList.isEmpty()) // create new grid
+        {
+            for (columnIndex in 0..12) {
+                for (rowIndex in 0..12) {
+                    val tileView = TileView(this@MainActivity)
+                    tileView.setImageResource(R.drawable.tile_cover)
+                    tileView.setImageRes(R.drawable.ball)
+                    tileView.id = ImageView.generateViewId()
+                    tileIdArray[columnIndex][rowIndex] = tileView.id
+
+
+                    val row = GridLayout.spec(rowIndex, 1)
+                    val column = GridLayout.spec(columnIndex, 1)
+                    val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, column)
+                    gridLayoutParam.height= (100 * den).toInt()
+                    gridLayoutParam.width= (100 * den).toInt()
+                    tileField.addView(tileView, gridLayoutParam)
+
+
+                    val tile = Tile()
+                    tile.imageRes = R.drawable.ball
+                    tile.isFaceUp = false
+                    tile.col = columnIndex
+                    tile.row = rowIndex
+                    db.addTile(tile)
+                }
+            }
+        }
+        else
+        {
+            for (tile in tileList)
+            {
+                val row = GridLayout.spec(tile.row, 1)
+                val column = GridLayout.spec(tile.col, 1)
+                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, column)
+                gridLayoutParam.height= (100 * den).toInt()
+                gridLayoutParam.width= (100 * den).toInt()
 
                 val tileView = TileView(this@MainActivity)
 
-                tileView.setImageResource(R.drawable.tile_cover)
-                tileView.setImageRes(R.drawable.ball)
-
                 tileView.id = ImageView.generateViewId()
+                tileView.setImageRes(tile.imageRes)
+                tileView.setFaceUp(tile.isFaceUp)
+                if (tileView.isFaceUp())
+                    tileView.flipTile()
 
-                tileIdArray[columnIndex][rowIndex] = tileView.id
-                val den = resources.displayMetrics.density
-                tileField.addView( tileView, (100 * den).toInt(), (100 * den).toInt() )
-                var tile: Tile = Tile()
 
-                tile.imageRes = R.drawable.ball
-                tile.isFaceUp = false
-                db.addTile(tile)
-                //Log.d(TAG, "id = ${tile.id}")
+                tileIdArray[tile.row][tile.col] = tileView.id
+
+
+                tileField.addView(tileView, gridLayoutParam)
 
             }
         }
+
+
+
 
     }
 

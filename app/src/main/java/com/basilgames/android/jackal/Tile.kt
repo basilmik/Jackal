@@ -6,7 +6,9 @@ import java.util.*
 
 @Entity
 data class Tile (
-    @PrimaryKey val id: UUID = UUID.randomUUID(),
-                 var isFaceUp: Boolean = false,
-                 var imageRes: Int = 0
+        @PrimaryKey val id: UUID = UUID.randomUUID(),
+        var col: Int = 0,
+        var row: Int = 0,
+        var isFaceUp: Boolean = false,
+        var imageRes: Int = 0
 )
