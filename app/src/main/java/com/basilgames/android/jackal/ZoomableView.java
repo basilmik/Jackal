@@ -166,22 +166,24 @@ public class ZoomableView extends ViewGroup {
         float den = getResources().getDisplayMetrics().density;
         screenPointsToScaledPoints(new float[] {x, y});
 
-        for(i = 0; i < 13; i++)
+        if (x < 0 || x > 1300 || y < 0 || y > 1300)
         {
-            if (i*100*den <= x && (i+1)*100*den >= x)
-            {
-                break;
+            i = -1; j = -1;
+            //break;
+        }
+        else {
+            for (i = 0; i < 13; i++) {
+                if (i * 100 * den <= x && (i + 1) * 100 * den >= x) {
+                    break;
+                }
+            }
+
+            for (j = 0; j < 13; j++) {
+                if (j * 100 * den <= y && (j + 1) * 100 * den >= y) {
+                    break;
+                }
             }
         }
-
-        for(j = 0; j < 13; j++)
-        {
-            if (j*100*den <= y && (j+1)*100*den >= y)
-            {
-                break;
-            }
-        }
-
     }
 
     int getWhichChildTouched(float  x, float y)
@@ -289,11 +291,11 @@ public class ZoomableView extends ViewGroup {
                         if (upTime - lastDownTime > android.view.ViewConfiguration.getLongPressTimeout() * 2L)
                         {
                             //Toast.makeText(getContext().getApplicationContext(), "i " + i + " j " + j /*+ " id " +  gridLayout[tileIdArray[i][j]]*/, Toast.LENGTH_LONG).show();
-                            int tileTouchedId = gettileField(j, i);
-                            TileView tileTouched = findViewById(tileTouchedId);
-
-
-                            tileTouched.flipTile();
+                            if (i > -1 && j > -1) {
+                                int tileTouchedId = gettileField(j, i);
+                                TileView tileTouched = findViewById(tileTouchedId);
+                                tileTouched.flipTile();
+                            }
                         }
                     movedFlag = false;
                 case MotionEvent.ACTION_POINTER_UP:
