@@ -1,6 +1,7 @@
 package com.basilgames.android.jackal.database
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.basilgames.android.jackal.database.Tile
@@ -11,6 +12,7 @@ import java.util.concurrent.Executors
 
 
 private const val DATABASE_NAME = "tile-database3"
+private const val TAG = "TileRep"
 
 class TileRepository private constructor(context: Context) {
 
@@ -29,12 +31,13 @@ class TileRepository private constructor(context: Context) {
 
     fun getTile(id: UUID): LiveData<Tile?> = tileDao.getTile(id)
 
-    fun getTileViewId(i: Int, j: Int): Int
+    fun getTileViewId(r: Int, c: Int): Int
     {
         val tileList: List<Tile> = tileDao.getTiles2()
         var stile: Tile? = null
         for (tile in tileList) {
-            if (tile.row == i && tile.col == j)
+            Log.d(TAG, "${tile.col} ${tile.row}  $r $c")
+            if (tile.row == r && tile.col == c)
             stile = tile
 
         }
@@ -79,7 +82,6 @@ class TileRepository private constructor(context: Context) {
             return INSTANCE?:
             throw IllegalStateException("TileRepository must be initialized")
         }
-
     }
 
 }
