@@ -1,11 +1,14 @@
 package com.basilgames.android.jackal
 
 import android.content.Context
+import android.util.Log
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.Toast
 import com.basilgames.android.jackal.database.Tile
 import com.basilgames.android.jackal.database.TileRepository
+
+private const val TAG = "TileGrid"
 
 class TileGrid(context: Context?) : GridLayout(context!!) {
 
@@ -53,15 +56,23 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
     fun saveToDB()
     {
-        clearDB()
+        //clearDB()
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
 
-                val tileView = findViewById<TileView>(tileIdArray[columnIndex][rowIndex])
+                var viewId = db.getTileViewId(columnIndex,rowIndex)
+                Log.d(TAG, "$columnIndex $rowIndex : viewId = $viewId")
+                val tileView = findViewById<TileView>(/*viewId*/tileIdArray[columnIndex][rowIndex])
                 val tile = Tile()
 
                 tile.imageRes = tileView.getImageRes()
                 tile.isFaceUp = tileView.isFaceUp()
+                /*//tile.row = rowIndex
+                //tile.col = columnIndex
+                //tile.viewId = tileView.id
+
+                db.updateTile(tile)*/
+
                 tile.row = rowIndex
                 tile.col = columnIndex
                 tile.viewId = tileView.id
@@ -88,6 +99,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
             // generating new view id
             tileIdArray[tile.col][tile.row] = tileView.id
             tile.viewId = tileView.id
+            db.updateTile(tile)
 
             val row = spec(tile.row, 1)
             val column = spec(tile.col, 1)
