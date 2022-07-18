@@ -13,12 +13,9 @@ import com.basilgames.android.jackal.database.TileRepository
 
 private const val TAG = "MainActivity"
 
-var tileIdArray: Array<Array<Int>> = Array(13) { Array(13) { _ -> 0 } }
-
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tileField: GridLayout
 
     private lateinit var tableView: ZoomableView
 
@@ -63,11 +60,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
         deleteButton.setOnClickListener {
             tileGrid.clearDB()
         }
-
 
 
         loadButton.setOnClickListener {
@@ -83,7 +78,6 @@ class MainActivity : AppCompatActivity() {
                 tileGrid.loadFromDB()
             }
         }
-
 
 
         saveButton.setOnClickListener {
@@ -105,14 +99,7 @@ class MainActivity : AppCompatActivity() {
             count++
         }
 
-
     }
 
 }
 
-
-/*
-fun gettileField(i:Int, j: Int): Int
-{
-    return tileIdArray[i][j]
-}*/

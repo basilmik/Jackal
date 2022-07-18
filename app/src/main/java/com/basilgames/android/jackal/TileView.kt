@@ -36,7 +36,7 @@ class TileView: androidx.appcompat.widget.AppCompatImageView {
         return imageRes
     }
 
-    public fun isFaceUp():Boolean
+    fun isFaceUp():Boolean
     {
         return faceUp
     }

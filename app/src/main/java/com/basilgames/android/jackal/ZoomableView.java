@@ -290,17 +290,16 @@ public class ZoomableView extends ViewGroup {
                         if (upTime - lastDownTime > android.view.ViewConfiguration.getLongPressTimeout() * 2L)
                         {
                             TileRepository db  = TileRepository.get();
-
                             int tileTouchedId = db.getTileViewId(i,j);
 
                             //Toast.makeText(getContext().getApplicationContext(), "i " + i + " j " + j , Toast.LENGTH_LONG).show();
                             if (tileTouchedId != -1) {
-
                                 TileView tileTouched = findViewById(tileTouchedId);
                                 tileTouched.flipTile();
                             }
                         }
                     movedFlag = false;
+
                 case MotionEvent.ACTION_POINTER_UP:
 
                     lastMode = mode;
@@ -383,7 +382,7 @@ public class ZoomableView extends ViewGroup {
                         float dx = x - start.x;
                         float dy = y - start.y;
 
-                        float deltas[] = screenPointsToScaledPoints(new float[] {dx + tX, dy + tY});
+                        float[] deltas = screenPointsToScaledPoints(new float[] {dx + tX, dy + tY});
 
 
                         child.setLeft((int) (leftM + deltas[0]));

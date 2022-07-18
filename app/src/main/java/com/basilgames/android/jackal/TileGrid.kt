@@ -32,14 +32,11 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 // card looks down
                 tileView.setFaceUp(false)
 
-                // so it can be accessed by id
-                tileIdArray[columnIndex][rowIndex] = tileView.id
-
                // add into the grid layout
                 this.addView(tileView, (100 * den).toInt(), (100 * den).toInt())
 
                 // new line into db
-                val tile: Tile = Tile()
+                val tile = Tile()
                 tile.imageRes = R.drawable.ball
                 tile.isFaceUp = false
                 tile.row = rowIndex
@@ -56,10 +53,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
         clearDB()
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
-
-                val tileView = findViewById<TileView>(tileIdArray[columnIndex][rowIndex])
+                val tileView = findViewById<TileView>(db.getTileViewId(columnIndex, rowIndex))
                 val tile = Tile()
-
                 tile.imageRes = tileView.getImageRes()
                 tile.isFaceUp = tileView.isFaceUp()
                 tile.row = rowIndex
@@ -82,11 +77,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 tileView.setImageResource(tile.imageRes)
             }
 
-
-            tileView.id = ImageView.generateViewId()
-
             // generating new view id
-            tileIdArray[tile.col][tile.row] = tileView.id
+            tileView.id = ImageView.generateViewId()
             tile.viewId = tileView.id
 
             val row = spec(tile.row, 1)
