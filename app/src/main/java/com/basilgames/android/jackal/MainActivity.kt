@@ -47,17 +47,19 @@ class MainActivity : AppCompatActivity() {
 
         tileGrid = TileGrid(this)
 
-        if (!tileGrid.isGridSet)
+
         addGridButton.setOnClickListener { // initialising new layout
+            if (!tileGrid.isGridSet) {
+                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
+                gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
+                gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
+                tileGrid.columnCount = 13
+                tileGrid.rowCount = 13
+                tableView.addView(tileGrid, gridLayoutParam)
 
-            val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
-            gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
-            gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
-            tileGrid.columnCount = 13
-            tileGrid.rowCount = 13
-            tableView.addView(tileGrid, gridLayoutParam)
 
-            tileGrid.createNewGrid()
+                tileGrid.createNewGrid()
+            }
         }
 
 
@@ -67,24 +69,25 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        if (!tileGrid.isGridSet)
+
         loadButton.setOnClickListener {
-            val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
-            gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
-            gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
+            if (!tileGrid.isGridSet) {
+                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
+                gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
+                gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
 
-            tileGrid.columnCount = 13
-            tileGrid.rowCount = 13
-            tableView.addView(tileGrid, gridLayoutParam)
+                tileGrid.columnCount = 13
+                tileGrid.rowCount = 13
+                tableView.addView(tileGrid, gridLayoutParam)
 
-            tileGrid.loadFromDB()
+                tileGrid.loadFromDB()
+            }
         }
 
 
-        if (!tileGrid.isGridSet)
+
         saveButton.setOnClickListener {
             tileGrid.saveToDB()
-
         }
 
 
