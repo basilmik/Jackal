@@ -111,7 +111,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 
+/*
 fun gettileField(i:Int, j: Int): Int
 {
     return tileIdArray[i][j]
-}
+}*/

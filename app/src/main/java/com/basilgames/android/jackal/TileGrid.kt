@@ -44,6 +44,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 tile.isFaceUp = false
                 tile.row = rowIndex
                 tile.col = columnIndex
+                tile.viewId = tileView.id
                 db.addTile(tile)
             }
         }
@@ -63,6 +64,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 tile.isFaceUp = tileView.isFaceUp()
                 tile.row = rowIndex
                 tile.col = columnIndex
+                tile.viewId = tileView.id
                 db.addTile(tile)
             }
         }
@@ -70,9 +72,6 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
     fun loadFromDB()
     {
-        //Toast.makeText(context.applicationContext,"upload", Toast.LENGTH_LONG).show()
-        //this.removeAllViews()
-
         for (tile in tileList) {
 
             val tileView = TileView(context)
@@ -83,8 +82,12 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 tileView.setImageResource(tile.imageRes)
             }
 
+
             tileView.id = ImageView.generateViewId()
+
+            // generating new view id
             tileIdArray[tile.col][tile.row] = tileView.id
+            tile.viewId = tileView.id
 
             val row = spec(tile.row, 1)
             val column = spec(tile.col, 1)

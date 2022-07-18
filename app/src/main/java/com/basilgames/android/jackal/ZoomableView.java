@@ -1,7 +1,7 @@
 package com.basilgames.android.jackal;
 
 
-import static com.basilgames.android.jackal.MainActivityKt.gettileField;
+
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Toast;
+
+import com.basilgames.android.jackal.database.Tile;
+import com.basilgames.android.jackal.database.TileRepository;
+
+import java.util.List;
 
 public class ZoomableView extends ViewGroup {
 
@@ -166,24 +171,18 @@ public class ZoomableView extends ViewGroup {
         float den = getResources().getDisplayMetrics().density;
         screenPointsToScaledPoints(new float[] {x, y});
 
-        if (x < 0 || x > 1300 || y < 0 || y > 1300)
-        {
-            i = -1; j = -1;
-            //break;
-        }
-        else {
-            for (i = 0; i < 13; i++) {
-                if (i * 100 * den <= x && (i + 1) * 100 * den >= x) {
-                    break;
-                }
+        for (i = 0; i < 13; i++) {
+            if (i * 100 * den <= x && (i + 1) * 100 * den >= x) {
+                break;
             }
+        }
 
-            for (j = 0; j < 13; j++) {
-                if (j * 100 * den <= y && (j + 1) * 100 * den >= y) {
-                    break;
-                }
+        for (j = 0; j < 13; j++) {
+            if (j * 100 * den <= y && (j + 1) * 100 * den >= y) {
+                break;
             }
         }
+
     }
 
     int getWhichChildTouched(float  x, float y)
@@ -290,9 +289,13 @@ public class ZoomableView extends ViewGroup {
                     if (!movedFlag)
                         if (upTime - lastDownTime > android.view.ViewConfiguration.getLongPressTimeout() * 2L)
                         {
-                            //Toast.makeText(getContext().getApplicationContext(), "i " + i + " j " + j /*+ " id " +  gridLayout[tileIdArray[i][j]]*/, Toast.LENGTH_LONG).show();
-                            if (i > -1 && j > -1) {
-                                int tileTouchedId = gettileField(j, i);
+                            TileRepository db  = TileRepository.get();
+
+                            int tileTouchedId = db.getTileViewId(i,j);
+
+                            //Toast.makeText(getContext().getApplicationContext(), "i " + i + " j " + j , Toast.LENGTH_LONG).show();
+                            if (tileTouchedId != -1) {
+
                                 TileView tileTouched = findViewById(tileTouchedId);
                                 tileTouched.flipTile();
                             }

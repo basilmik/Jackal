@@ -10,7 +10,7 @@ import java.util.*
 import java.util.concurrent.Executors
 
 
-private const val DATABASE_NAME = "tile-database2"
+private const val DATABASE_NAME = "tile-database3"
 
 class TileRepository private constructor(context: Context) {
 
@@ -29,6 +29,18 @@ class TileRepository private constructor(context: Context) {
 
     fun getTile(id: UUID): LiveData<Tile?> = tileDao.getTile(id)
 
+    fun getTileViewId(i: Int, j: Int): Int
+    {
+        val tileList: List<Tile> = tileDao.getTiles2()
+        var stile: Tile? = null
+        for (tile in tileList) {
+            if (tile.row == i && tile.col == j)
+            stile = tile
+
+        }
+
+        return stile?.viewId ?: -1
+    }
 
 
     fun updateTile(tile: Tile)
@@ -63,7 +75,7 @@ class TileRepository private constructor(context: Context) {
             }
         }
 
-        fun get(): TileRepository{
+        @JvmStatic fun get(): TileRepository{
             return INSTANCE?:
             throw IllegalStateException("TileRepository must be initialized")
         }
