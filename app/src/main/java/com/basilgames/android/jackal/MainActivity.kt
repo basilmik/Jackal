@@ -13,7 +13,7 @@ import com.basilgames.android.jackal.database.TileRepository
 
 private const val TAG = "MainActivity"
 
-var tileIdArray: Array<Array<Int>> = Array(13) { Array(13) { _ -> 0 } }
+//var tileIdArray: Array<Array<Int>> = Array(13) { Array(13) { _ -> 0 } }
 
 
 class MainActivity : AppCompatActivity() {
@@ -110,9 +110,3 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-
-/*
-fun gettileField(i:Int, j: Int): Int
-{
-    return tileIdArray[i][j]
-}*/

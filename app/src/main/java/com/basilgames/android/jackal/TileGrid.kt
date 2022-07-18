@@ -28,15 +28,10 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 // new tile with params
                 val tileView = TileView(context)
                 tileView.id = ImageView.generateViewId()
-                // set resource as cover
                 tileView.setImageResource(R.drawable.tile_cover)
-                // set card face
                 tileView.setImageRes(R.drawable.ball)
-                // card looks down
                 tileView.setFaceUp(false)
 
-                // so it can be accessed by id
-                tileIdArray[columnIndex][rowIndex] = tileView.id
 
                // add into the grid layout
                 this.addView(tileView, (100 * den).toInt(), (100 * den).toInt())
@@ -56,29 +51,51 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
     fun saveToDB()
     {
+        var tileIdArray: Array<Array<Int>> = Array(13) { Array(13) { _ -> 0 } }
+        for (columnIndex in 0..12) {
+            for (rowIndex in 0..12) {
+                tileIdArray[rowIndex][columnIndex] = db.getTileViewId(columnIndex, rowIndex)
+            }
+        }
         //clearDB()
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
 
                 var viewId = db.getTileViewId(columnIndex,rowIndex)
-                Log.d(TAG, "$columnIndex $rowIndex : viewId = $viewId")
-                val tileView = findViewById<TileView>(/*viewId*/tileIdArray[columnIndex][rowIndex])
-                val tile = Tile()
 
-                tile.imageRes = tileView.getImageRes()
+                val tile: Tile? = db.getTileViewId2(columnIndex,rowIndex)
+                viewId = tile!!.viewId
+                //Log.d(TAG, "$columnIndex $rowIndex : viewId = $viewId")
+                val tileView = findViewById<TileView>(viewId /*tileIdArray[columnIndex][rowIndex]*/)
+                //val tile = Tile() // db.getTileViewId2(columnIndex,rowIndex)
+
+
+                /*tile.imageRes = tileView.getImageRes()
                 tile.isFaceUp = tileView.isFaceUp()
-                /*//tile.row = rowIndex
-                //tile.col = columnIndex
-                //tile.viewId = tileView.id
-
-                db.updateTile(tile)*/
 
                 tile.row = rowIndex
                 tile.col = columnIndex
                 tile.viewId = tileView.id
-                db.addTile(tile)
+                db.addTile(tile)*/
+                //db.updateTile(tile)
+
+
+                    tile.imageRes = tileView.getImageRes()
+
+                    tile.isFaceUp = tileView.isFaceUp()
+
+
+                tile.row = rowIndex
+                tile.col = columnIndex
+                tile.viewId = tileView.id
+                //db.addTile(tile)
+                db.updateTile(tile)
+
             }
         }
+
+
+        Toast.makeText(context.applicationContext, "tileList ${tileList.size}", Toast.LENGTH_LONG).show()
     }
 
     fun loadFromDB()
@@ -93,11 +110,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 tileView.setImageResource(tile.imageRes)
             }
 
-
-            tileView.id = ImageView.generateViewId()
-
             // generating new view id
-            tileIdArray[tile.col][tile.row] = tileView.id
+            tileView.id = ImageView.generateViewId()
             tile.viewId = tileView.id
             db.updateTile(tile)
 

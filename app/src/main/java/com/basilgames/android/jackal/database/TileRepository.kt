@@ -42,6 +42,19 @@ class TileRepository private constructor(context: Context) {
         return stile?.viewId ?: -1
     }
 
+    fun getTileViewId2(i: Int, j: Int): Tile?
+    {
+        val tileList: List<Tile> = tileDao.getTiles2()
+        var stile: Tile? = null
+        for (tile in tileList) {
+            if (tile.row == i && tile.col == j)
+                stile = tile
+
+        }
+
+        return stile
+    }
+
 
     fun updateTile(tile: Tile)
     {
