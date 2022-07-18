@@ -47,24 +47,46 @@ class MainActivity : AppCompatActivity() {
 
         tileGrid = TileGrid(this)
 
+        if (!tileGrid.isGridSet)
         addGridButton.setOnClickListener { // initialising new layout
-            /*tileField = GridLayout(this)
 
-            tileField.columnCount = 13
-            tileField.rowCount = 13
-*/
             val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
             gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
             gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
+            tileGrid.columnCount = 13
+            tileGrid.rowCount = 13
+            tableView.addView(tileGrid, gridLayoutParam)
 
-            //tableView.addView(tileField, gridLayoutParam)
+            tileGrid.createNewGrid()
+        }
+
+
+
+        deleteButton.setOnClickListener {
+            tileGrid.clearDB()
+        }
+
+
+        if (!tileGrid.isGridSet)
+        loadButton.setOnClickListener {
+            val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
+            gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
+            gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
 
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
             tableView.addView(tileGrid, gridLayoutParam)
 
-            tileGrid.create()
+            tileGrid.loadFromDB()
         }
+
+
+        if (!tileGrid.isGridSet)
+        saveButton.setOnClickListener {
+            tileGrid.saveToDB()
+
+        }
+
 
         addViewButton.setOnClickListener { // initialising new layout
             val imageView = ImageView(this@MainActivity)
@@ -78,50 +100,6 @@ class MainActivity : AppCompatActivity() {
 
             tableView.addChild(imageView, x, y, w, h)
             count++
-        }
-
-        deleteButton.setOnClickListener {
-            val db: TileRepository = TileRepository.get()
-
-            val tileList = db.getTiles2()
-
-            Toast.makeText(applicationContext, "db size is : ${tileList.size}", Toast.LENGTH_LONG)
-                .show()
-            db.deleteTiles()
-
-        }
-
-        loadButton.setOnClickListener {
-            val db: TileRepository = TileRepository.get()
-            val tileList = db.getTiles2()
-
-            Toast.makeText(applicationContext, "db size is : ${tileList.size}", Toast.LENGTH_LONG)
-                .show()
-
-        }
-
-        saveButton.setOnClickListener {
-            val db: TileRepository = TileRepository.get()
-            db.deleteTiles()
-
-            for (columnIndex in 0..12) {
-                for (rowIndex in 0..12) {
-
-                    val tile: Tile = Tile()
-
-                    val tileView = findViewById<TileView>(tileIdArray[columnIndex][rowIndex])
-
-                    tile.imageRes = tileView.getImageRes()
-                    tile.isFaceUp = tileView.isFaceUp()
-
-                    tile.row = rowIndex
-                    tile.col = columnIndex
-                    db.addTile(tile)
-
-                }
-            }
-
-
         }
 
 
