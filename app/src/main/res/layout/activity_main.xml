@@ -9,7 +9,7 @@ tools:context=".MainActivity"
 >
 
     <com.basilgames.android.jackal.ZoomableView
-        android:id="@+id/field_view"
+        android:id="@+id/table_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >

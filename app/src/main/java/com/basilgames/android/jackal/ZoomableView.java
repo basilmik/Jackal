@@ -133,8 +133,6 @@ public class ZoomableView extends ViewGroup {
         }
     }
 
-
-
     @Override
     protected void dispatchDraw(Canvas canvas) {
         float[] values = new float[9];
@@ -160,6 +158,8 @@ public class ZoomableView extends ViewGroup {
 
     int i;
     int j;
+
+
 
     void calcTileId(float  x, float y)
     {
