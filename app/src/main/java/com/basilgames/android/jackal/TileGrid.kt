@@ -101,6 +101,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     }
 
 
+
     fun clearDB()
     {
         db.deleteTiles()
