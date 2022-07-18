@@ -9,6 +9,7 @@ import com.basilgames.android.jackal.database.Tile
 import com.basilgames.android.jackal.database.TileRepository
 
 private const val TAG = "TileGrid"
+private const val TAG2 = "TileGrid2"
 
 class TileGrid(context: Context?) : GridLayout(context!!) {
 
@@ -51,49 +52,21 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
     fun saveToDB()
     {
-        var tileIdArray: Array<Array<Int>> = Array(13) { Array(13) { _ -> 0 } }
-        for (columnIndex in 0..12) {
-            for (rowIndex in 0..12) {
-                tileIdArray[rowIndex][columnIndex] = db.getTileViewId(columnIndex, rowIndex)
-            }
-        }
-        //clearDB()
+
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
 
-                var viewId = db.getTileViewId(columnIndex,rowIndex)
+                val tile2 = db.getTile2(rowIndex , columnIndex)
+                val tileView = findViewById<TileView>(tile2.viewId)
 
-                val tile: Tile? = db.getTileViewId2(columnIndex,rowIndex)
-                viewId = tile!!.viewId
-                //Log.d(TAG, "$columnIndex $rowIndex : viewId = $viewId")
-                val tileView = findViewById<TileView>(viewId /*tileIdArray[columnIndex][rowIndex]*/)
-                //val tile = Tile() // db.getTileViewId2(columnIndex,rowIndex)
+                tile2.imageRes = tileView.getImageRes()
+                tile2.isFaceUp = tileView.isFaceUp()
 
+                tile2.viewId = tileView.id
 
-                /*tile.imageRes = tileView.getImageRes()
-                tile.isFaceUp = tileView.isFaceUp()
-
-                tile.row = rowIndex
-                tile.col = columnIndex
-                tile.viewId = tileView.id
-                db.addTile(tile)*/
-                //db.updateTile(tile)
-
-
-                    tile.imageRes = tileView.getImageRes()
-
-                    tile.isFaceUp = tileView.isFaceUp()
-
-
-                tile.row = rowIndex
-                tile.col = columnIndex
-                tile.viewId = tileView.id
-                //db.addTile(tile)
-                db.updateTile(tile)
-
+                db.updateTile(tile2)
             }
         }
-
 
         Toast.makeText(context.applicationContext, "tileList ${tileList.size}", Toast.LENGTH_LONG).show()
     }
@@ -101,7 +74,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     fun loadFromDB()
     {
         for (tile in tileList) {
-
+            Log.d(TAG, "id = ${tile.id}")
             val tileView = TileView(context)
             tileView.setImageRes(tile.imageRes)
             tileView.setImageResource(R.drawable.tile_cover)

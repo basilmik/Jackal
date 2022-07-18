@@ -170,19 +170,22 @@ public class ZoomableView extends ViewGroup {
     {
         float den = getResources().getDisplayMetrics().density;
         screenPointsToScaledPoints(new float[] {x, y});
+        //Toast.makeText(getContext().getApplicationContext(),"x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
+        if (x < 0 || x > 1300* den || y < 0 || y > 1300* den)
+            i = -1;
+        else {
+            for (i = 0; i < 13; i++) {
+                if (i * 100 * den <= x && (i + 1) * 100 * den >= x) {
+                    break;
+                }
+            }
 
-        for (i = 0; i < 13; i++) {
-            if (i * 100 * den <= x && (i + 1) * 100 * den >= x) {
-                break;
+            for (j = 0; j < 13; j++) {
+                if (j * 100 * den <= y && (j + 1) * 100 * den >= y) {
+                    break;
+                }
             }
         }
-
-        for (j = 0; j < 13; j++) {
-            if (j * 100 * den <= y && (j + 1) * 100 * den >= y) {
-                break;
-            }
-        }
-
     }
 
     int getWhichChildTouched(float  x, float y)
@@ -289,12 +292,9 @@ public class ZoomableView extends ViewGroup {
                     if (!movedFlag)
                         if (upTime - lastDownTime > android.view.ViewConfiguration.getLongPressTimeout() * 2L)
                         {
-                            TileRepository db  = TileRepository.get();
-
-                            int tileTouchedId = db.getTileViewId(i,j);
-
-                            //Toast.makeText(getContext().getApplicationContext(), "i " + i + " j " + j , Toast.LENGTH_LONG).show();
-                            if (tileTouchedId != -1) {
+                            if (i != -1)
+                            {
+                                int tileTouchedId = TileRepository.get().getTile2(i, j).getViewId();
 
                                 TileView tileTouched = findViewById(tileTouchedId);
                                 tileTouched.flipTile();

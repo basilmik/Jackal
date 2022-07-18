@@ -29,6 +29,8 @@ class TileRepository private constructor(context: Context) {
 
     fun getTile(id: UUID): LiveData<Tile?> = tileDao.getTile(id)
 
+    fun getTile2(i: Int, j: Int): Tile = tileDao.getTile2(i,j)
+
     fun getTileViewId(i: Int, j: Int): Int
     {
         val tileList: List<Tile> = tileDao.getTiles2()
