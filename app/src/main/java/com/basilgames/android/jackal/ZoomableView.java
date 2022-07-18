@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,11 +152,18 @@ public class ZoomableView extends ViewGroup {
     }
 
 
-    public void addChild(android.view.View child, int x, int y, int w, int h)
+    public void addChild(android.view.View child, int _x, int _y, int _w, int _h)
     {
-        child.setLeft((int) (x * getResources().getDisplayMetrics().density));
-        child.setTop((int) (y * getResources().getDisplayMetrics().density));
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(w,h);
+        int x = (int) (_x * getResources().getDisplayMetrics().density);
+        int y = (int) (_y * getResources().getDisplayMetrics().density);
+        int w = (int) (_w * getResources().getDisplayMetrics().density);
+        int h = (int) (_h * getResources().getDisplayMetrics().density);
+
+        child.setLeft(x);
+        child.setTop(y);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(w, h);
+
+        Log.d("cats", "addChild x:" + _x + " y:" + _y + " w:"  + _w + " h:" + _h + " " + x + " " + y + " " + w + " " + h );
 
         addView(child,params);
     }

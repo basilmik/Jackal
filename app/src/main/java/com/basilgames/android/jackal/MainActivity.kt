@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.basilgames.android.jackal.database.Tile
-import com.basilgames.android.jackal.database.TileRepository
 
 
 private const val TAG = "MainActivity"
@@ -29,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var saveButton: Button
 
     lateinit var tileGrid: TileGrid
+    lateinit var cats: CatsOnTable
 
 
     var count = 1
@@ -46,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.savegrid)
 
         tileGrid = TileGrid(this)
+        cats = CatsOnTable()
 
 
         addGridButton.setOnClickListener { // initialising new layout
@@ -62,12 +61,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
         deleteButton.setOnClickListener {
             tileGrid.clearDB()
+            cats.clearDB()
         }
-
 
 
         loadButton.setOnClickListener {
@@ -81,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 tableView.addView(tileGrid, gridLayoutParam)
 
                 tileGrid.loadFromDB()
+                cats.loadFromDB(tableView)
             }
         }
 
@@ -88,25 +86,42 @@ class MainActivity : AppCompatActivity() {
 
         saveButton.setOnClickListener {
             tileGrid.saveToDB()
+            val den = resources.displayMetrics.density
+            cats.saveToDB(tableView, den)
         }
+
 
 
         addViewButton.setOnClickListener { // initialising new layout
             val imageView = ImageView(this@MainActivity)
 
             imageView.setImageResource(R.drawable.cat_square)
+
+            imageView.id = ImageView.generateViewId()
+
             val x: Int = count * 50
             val y: Int = count * 50 + 100
-            val den = resources.displayMetrics.density
-            val w: Int = (100 * den).toInt()
-            val h: Int = (100 * den).toInt()
-
-            tableView.addChild(imageView, x, y, w, h)
             count++
+
+            addImageView(imageView, x, y, 100, 100)
+            cats.addCatToDB(imageView, R.drawable.cat_square)
+
+
         }
 
 
     }
+
+
+    fun addImageView(imageView: ImageView, x: Int, y: Int, _w: Int, _h: Int)
+    {
+        //val den = resources.displayMetrics.density
+        //val w: Int = (_w * den).toInt()
+        //val h: Int = (_h * den).toInt()
+
+        tableView.addChild(imageView, x, y, _w, _h)
+    }
+
 
 }
 

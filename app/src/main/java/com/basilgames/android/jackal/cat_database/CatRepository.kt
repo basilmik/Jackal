@@ -8,7 +8,7 @@ import java.lang.IllegalStateException
 import java.util.concurrent.Executors
 
 
-private const val CAT_DATABASE_NAME = "cat-database"
+private const val CAT_DATABASE_NAME = "cat-database2"
 
 class CatRepository private constructor(context: Context){
 
@@ -24,7 +24,26 @@ class CatRepository private constructor(context: Context){
     fun getCats(): List<Cat> = catDao.getCats()
 
 
+    fun updateCat(cat: Cat)
+    {
+        executor.execute{
+            catDao.updateCat(cat)
+        }
+    }
 
+    fun deleteCats()
+    {
+        executor.execute{
+            catDao.deleteAllCats()
+        }
+    }
+
+    fun addCat(cat: Cat)
+    {
+        executor.execute{
+            catDao.addCat(cat)
+        }
+    }
 
 
     companion object{

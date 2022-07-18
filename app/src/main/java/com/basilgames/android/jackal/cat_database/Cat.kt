@@ -9,6 +9,8 @@ data class Cat (
     @PrimaryKey val id: UUID = UUID.randomUUID(),
     var viewId: Int = 0,
     var imageRes: Int = 0,
-    var topMargin: Float = 0F,
-    var leftMargin: Float = 0F
+    var topMargin: Int = 0,
+    var leftMargin: Int = 0,
+    var h: Int = 0,
+    var w: Int = 0
 )
