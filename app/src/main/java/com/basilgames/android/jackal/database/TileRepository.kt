@@ -23,39 +23,11 @@ class TileRepository private constructor(context: Context) {
     private val tileDao = database.tileDao()
     private val executor = Executors.newSingleThreadExecutor()
 
-    fun getTiles(): LiveData<List<Tile>> = tileDao.getTiles()
 
     fun getTiles2(): List<Tile> = tileDao.getTiles2()
 
-    fun getTile(id: UUID): LiveData<Tile?> = tileDao.getTile(id)
-
     fun getTile2(i: Int, j: Int): Tile = tileDao.getTile2(i,j)
 
-    fun getTileViewId(i: Int, j: Int): Int
-    {
-        val tileList: List<Tile> = tileDao.getTiles2()
-        var stile: Tile? = null
-        for (tile in tileList) {
-            if (tile.row == i && tile.col == j)
-            stile = tile
-
-        }
-
-        return stile?.viewId ?: -1
-    }
-
-    fun getTileViewId2(i: Int, j: Int): Tile?
-    {
-        val tileList: List<Tile> = tileDao.getTiles2()
-        var stile: Tile? = null
-        for (tile in tileList) {
-            if (tile.row == i && tile.col == j)
-                stile = tile
-
-        }
-
-        return stile
-    }
 
 
     fun updateTile(tile: Tile)

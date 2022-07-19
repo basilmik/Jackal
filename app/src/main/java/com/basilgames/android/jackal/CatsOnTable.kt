@@ -25,14 +25,11 @@ class CatsOnTable {
         cat.viewId = catView.id
         cat.leftMargin = catView.left
         cat.topMargin = catView.top
-        //cat.h = (catView.height/den).toInt()
+
         cat.h = catView.height
-        //cat.w = (catView.width/den).toInt()
         cat.w = catView.width
 
         Log.d(TAG, "addCatToDB id ${catView.id} l ${catView.left} t ${catView.top} w ${catView.width} h ${catView.height}")
-
-        //Log.d(TAG, "add cat.h ${cat.h} ")
 
         db.addCat(cat)
         //Log.d(TAG, " catView.leftMargin ${cat.leftMargin} cat.h ${cat.h}")

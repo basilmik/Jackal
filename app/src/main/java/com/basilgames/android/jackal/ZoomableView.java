@@ -165,7 +165,7 @@ public class ZoomableView extends ViewGroup {
 
         Log.d("cats", "addChild x:" + _x + " y:" + _y + " w:"  + _w + " h:" + _h + " " + x + " " + y + " " + w + " " + h );
 
-        addView(child,params);
+        addView(child, params);
     }
 
 
@@ -178,18 +178,18 @@ public class ZoomableView extends ViewGroup {
     {
         float den = getResources().getDisplayMetrics().density;
         screenPointsToScaledPoints(new float[] {x, y});
-        //Toast.makeText(getContext().getApplicationContext(),"x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
-        if (x < 0 || x > 1300* den || y < 0 || y > 1300* den)
+        Toast.makeText(getContext().getApplicationContext(),"x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
+        if (x < 0 || x > 1080 * den || y < 0 || y > 1080* den)
             i = -1;
         else {
             for (i = 0; i < 13; i++) {
-                if (i * 100 * den <= x && (i + 1) * 100 * den >= x) {
+                if (i * (83)  <= x && (i + 1) * (83)  >= x) {
                     break;
                 }
             }
 
             for (j = 0; j < 13; j++) {
-                if (j * 100 * den <= y && (j + 1) * 100 * den >= y) {
+                if (j * (83)  <= y && (j + 1) * (83)  >= y) {
                     break;
                 }
             }

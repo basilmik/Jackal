@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.lang.Integer.min
+import java.security.AccessController.getContext
 
 
 private const val TAG = "MainActivity"
@@ -30,12 +33,17 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     var count = 1
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+         val h = applicationContext.resources.displayMetrics.heightPixels
+         val w = applicationContext.resources.displayMetrics.widthPixels
+         val minwh = min(h, w)
+         val sideLen = minwh/13
         setContentView(R.layout.activity_main)
         tableView = findViewById(R.id.table_view)
         addViewButton = findViewById(R.id.addview)
@@ -51,15 +59,14 @@ class MainActivity : AppCompatActivity() {
 
         addGridButton.setOnClickListener { // initialising new layout
             if (!tileGrid.isGridSet) {
-                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
-                gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
-                gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
+
                 tileGrid.columnCount = 13
                 tileGrid.rowCount = 13
-                tableView.addView(tileGrid, gridLayoutParam)
+                tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
+                tileGrid.createNewGrid(sideLen, sideLen)
+                cats.clearDB()
 
-                tileGrid.createNewGrid()
             }
         }
 
@@ -71,15 +78,22 @@ class MainActivity : AppCompatActivity() {
 
         loadButton.setOnClickListener {
             if (!tileGrid.isGridSet) {
-                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
-                gridLayoutParam.height = (1300 * resources.displayMetrics.density).toInt()
-                gridLayoutParam.width = (1300 * resources.displayMetrics.density).toInt()
+                /*val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
+                gridLayoutParam.height = (h * resources.displayMetrics.density).toInt()
+                gridLayoutParam.width = (w * resources.displayMetrics.density).toInt()
 
                 tileGrid.columnCount = 13
                 tileGrid.rowCount = 13
-                tableView.addView(tileGrid, gridLayoutParam)
+                //tableView.addView(tileGrid, gridLayoutParam)
+                tableView.addChild(tileGrid, 0,0, w, h)*/
 
-                tileGrid.loadFromDB()
+
+                tileGrid.columnCount = 13
+                tileGrid.rowCount = 13
+                tableView.addChild(tileGrid, 0, 0, minwh, minwh)
+
+                tileGrid.loadFromDB(sideLen, sideLen)
+                //tileGrid.top = (h-w)/2
                 cats.loadFromDB(tableView)
             }
         }
@@ -94,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        addViewButton.setOnClickListener { // initialising new layout
+        addViewButton.setOnClickListener {
             val imageView = ImageView(this@MainActivity)
 
             imageView.setImageResource(R.drawable.cat_square)
@@ -117,10 +131,6 @@ class MainActivity : AppCompatActivity() {
 
     fun addImageView(imageView: ImageView, x: Int, y: Int, _w: Int, _h: Int)
     {
-        //val den = resources.displayMetrics.density
-        //val w: Int = (_w * den).toInt()
-        //val h: Int = (_h * den).toInt()
-
         tableView.addChild(imageView, x, y, _w, _h)
     }
 

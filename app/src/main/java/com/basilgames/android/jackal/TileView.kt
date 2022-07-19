@@ -2,6 +2,8 @@ package com.basilgames.android.jackal
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Path
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.widget.ImageView
 
@@ -19,6 +21,7 @@ class TileView: androidx.appcompat.widget.AppCompatImageView {
         val rect = RectF(0F, 0F, this.width.toFloat(), this.height.toFloat() )
         clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW)
         canvas.clipPath(clipPath)*/
+
         super.onDraw(canvas)
     }
 
@@ -46,7 +49,7 @@ class TileView: androidx.appcompat.widget.AppCompatImageView {
         faceUp = !faceUp
         if (faceUp) setImageResource(imageRes)
         else
-            setImageResource(R.drawable.tile_cover)
+            setImageResource(R.drawable.cover)
     }
 
 

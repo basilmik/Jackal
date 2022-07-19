@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import android.widget.GridLayout
 import android.widget.ImageView
-import android.widget.Toast
 import com.basilgames.android.jackal.database.Tile
 import com.basilgames.android.jackal.database.TileRepository
 
@@ -21,18 +20,12 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     var isGridSet = false
 
     // create new grid
-    fun createNewGrid(){
+    fun createNewGrid(_h: Int, _w: Int){
 
         clearDB()
         val cardSet= CardSet()
         cardSet.mixCardSet()
 
-        /*for (columnIndex in 0..12) {
-            for (rowIndex in 0..12) {
-
-
-            }
-        }*/
 
         for (columnIndex in 0 until N) {
             for (rowIndex in 0 until N) {
@@ -53,12 +46,13 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 else {
                     tileView.setImageRes(cardSet.getNewCard())
                     tileView.setFaceUp(false)
+                    tileView.rotation = 90F*(0..4).random()
                 }
 
-                tileView.rotation = 90F*(0..4).random()
-               // add into the grid layout
-                this.addView(tileView, (100 * den).toInt(), (100 * den).toInt())
+                // add into the grid layout
+                this.addView(tileView, _w, _h)
 
+                Log.d("cats", "addChild h:${tileView.height} w:${tileView.width}")
                 // new line into db
                 val tile: Tile = Tile()
                 tile.imageRes = R.drawable.ball
@@ -72,13 +66,14 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
         isGridSet = true
     }
 
+
     fun saveToDB()
     {
 
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
 
-                val tile2 = db.getTile2(rowIndex , columnIndex)
+                val tile2 = db.getTile2(rowIndex, columnIndex)
                 val tileView = findViewById<TileView>(tile2.viewId)
 
                 tile2.imageRes = tileView.getImageRes()
@@ -90,10 +85,10 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
             }
         }
 
-        Toast.makeText(context.applicationContext, "tileList ${tileList.size}", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context.applicationContext, "tileList ${tileList.size}", Toast.LENGTH_LONG).show()
     }
 
-    fun loadFromDB()
+    fun loadFromDB(h: Int, w: Int)
     {
         for (tile in tileList) {
             Log.d(TAG, "id = ${tile.id}")
@@ -116,7 +111,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
             gridLayoutParam.height = (100 * den).toInt()
             gridLayoutParam.width = (100 * den).toInt()
-            this.addView(tileView, gridLayoutParam)
+            this.addView(tileView, w, h)
         }
         isGridSet = true
     }
