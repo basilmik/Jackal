@@ -8,11 +8,20 @@
         android:orderInCategory="100"
         android:title="Restart"
         app:showAsAction="never"
-        android:src="@drawable/ball"/>
+        />
     <item
         android:id="@+id/action_rules"
         android:orderInCategory="100"
         android:title="About"
         app:showAsAction="never"/>
-
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="100"
+        android:title=".clearDB()"
+        app:showAsAction="never"/>
+    <item
+    android:id="@+id/action_save"
+    android:orderInCategory="100"
+    android:title=".saveToDB()"
+    app:showAsAction="never"/>
 </menu>

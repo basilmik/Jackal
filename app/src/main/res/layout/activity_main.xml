@@ -16,25 +16,14 @@ tools:context=".MainActivity"
     <com.basilgames.android.jackal.ZoomableView
         android:id="@+id/table_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
+
 
     </com.basilgames.android.jackal.ZoomableView>
 
 
-
-
-    <Button
-        android:id="@+id/addview"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_200"
-        android:layout_marginTop="550dp"
-        android:layout_marginLeft="150dp"
-        android:text="Add Image View"
-        android:textColor="@color/black"
-        />
-
-    <Button
+    <!--<Button
         android:id="@+id/addgrid"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -43,7 +32,7 @@ tools:context=".MainActivity"
         android:backgroundTint="#80CBC4"
         android:gravity="center"
         android:text="New Game"
-        android:textColor="@color/black" />
+        android:textColor="@color/black" />-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -53,6 +42,16 @@ tools:context=".MainActivity"
         android:textColor="@color/black"
         android:text="Hello World!"/>
     <Button
+        android:id="@+id/addview"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginBottom="133dp"
+        android:backgroundTint="@color/teal_200"
+        android:text="Add Cat"
+        android:textColor="@color/black" />
+    <!--<Button
         android:id="@+id/deletegrid"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
@@ -62,7 +61,7 @@ tools:context=".MainActivity"
         android:gravity="center"
         android:text="delete"
         android:textColor="@color/black"
-        />
+        />-->
 
    <!-- <Button
         android:id="@+id/loadgrid"
@@ -76,7 +75,7 @@ tools:context=".MainActivity"
         android:textColor="@color/black"
         />-->
 
-    <Button
+    <!--<Button
         android:id="@+id/savegrid"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
@@ -86,5 +85,5 @@ tools:context=".MainActivity"
         android:gravity="center"
         android:text="save"
         android:textColor="@color/black"
-        />
+        />-->
 </RelativeLayout>

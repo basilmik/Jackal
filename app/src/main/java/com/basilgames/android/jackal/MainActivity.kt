@@ -46,11 +46,11 @@ class MainActivity : AppCompatActivity() {
 
         tableView = findViewById(R.id.table_view)
         addViewButton = findViewById(R.id.addview)
-        addGridButton = findViewById(R.id.addgrid)
-        deleteButton = findViewById(R.id.deletegrid)
+        //addGridButton = findViewById(R.id.addgrid)
+        //deleteButton = findViewById(R.id.deletegrid)
         //loadButton = findViewById(R.id.loadgrid)
         textView = findViewById(R.id.textView)
-        saveButton = findViewById(R.id.savegrid)
+        //saveButton = findViewById(R.id.savegrid)
 
 
         //tileGrid.clearDB()
@@ -87,14 +87,14 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        addGridButton.setOnClickListener {
+        /*addGridButton.setOnClickListener {
             createNewTileGrid()
-        }
+        }*/
 
-        deleteButton.setOnClickListener {
+       /* deleteButton.setOnClickListener {
             tileGrid.clearDB()
             cats.clearDB()
-        }
+        }*/
 
 
 
@@ -112,12 +112,11 @@ class MainActivity : AppCompatActivity() {
         }*/
 
 
-
-        saveButton.setOnClickListener {
+        /*saveButton.setOnClickListener {
             tileGrid.saveToDB()
             val den = resources.displayMetrics.density
             cats.saveToDB(tableView, den)
-        }
+        }*/
 
 
 
@@ -165,6 +164,17 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_rules -> {
                 textView.text = "Rules"
+                return true
+            }
+            R.id.action_delete -> {
+                tileGrid.clearDB()
+                cats.clearDB()
+                return true
+            }
+            R.id.action_save -> {
+                tileGrid.saveToDB()
+                val den = resources.displayMetrics.density
+                cats.saveToDB(tableView, den)
                 return true
             }
 
