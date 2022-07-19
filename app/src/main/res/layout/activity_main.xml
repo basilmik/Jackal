@@ -18,7 +18,16 @@ tools:context=".MainActivity"
 
     </com.basilgames.android.jackal.ZoomableView>
 
-
+    <Button
+        android:id="@+id/gameactivity"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_200"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="150dp"
+        android:text="GAME"
+        android:textColor="@color/black"
+        />
 
 
     <Button

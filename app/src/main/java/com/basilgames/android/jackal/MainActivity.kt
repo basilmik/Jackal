@@ -1,14 +1,16 @@
 package com.basilgames.android.jackal
 
+
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.Integer.min
-import java.security.AccessController.getContext
 
 
 private const val TAG = "MainActivity"
@@ -50,6 +52,22 @@ class MainActivity : AppCompatActivity() {
         tileGrid = TileGrid(this)
         cats = CatsOnTable()
 
+        val next = findViewById<View>(R.id.gameactivity) as Button
+       /* next.setOnClickListener {
+            fun onClick(view: View) {
+                val myIntent = Intent(view.context, GameActivity::class.java)
+                startActivityForResult(myIntent, 0)
+            }
+        }*/
+        next.setOnClickListener{
+            Toast.makeText(applicationContext, "on btn", Toast.LENGTH_LONG).show()
+
+            intent = Intent(applicationContext, GameActivity::class.java)
+
+            startActivity(intent)
+            finish()
+
+        }
 
 
         addGridButton.setOnClickListener { // initialising new layout
