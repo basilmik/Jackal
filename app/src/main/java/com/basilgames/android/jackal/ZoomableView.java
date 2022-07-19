@@ -196,8 +196,8 @@ public class ZoomableView extends ViewGroup {
         int sideLen = w/13;
         float den = getResources().getDisplayMetrics().density;
         screenPointsToScaledPoints(new float[] {x, y});
-        //Toast.makeText(getContext().getApplicationContext(),"w = " + w + "x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
-        if (x < 0 || x > w * den || y < 0 || y > w * den)
+        Toast.makeText(getContext().getApplicationContext(),"w = " + w + "x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
+        if (x < 0 || x > w /* * den*/ || y < 0 || y > w /* * den*/)
             i = -1;
         else {
             for (i = 0; i < 13; i++) {

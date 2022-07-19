@@ -76,7 +76,7 @@ class CatsOnTable {
             Log.d(TAG, "load catView.leftMargin ${cat.leftMargin}")
             catView.setImageResource(cat.imageRes)
 
-            tableView.addChild(catView, cat.leftMargin, cat.topMargin, cat.w, cat.h)
+            tableView.addChild(catView, cat.leftMargin, cat.topMargin, 10, 10)
 
             //Log.d(TAG, "LOAD   catView.leftMargin ${cat.leftMargin} cat.h ${cat.h}")
         }
