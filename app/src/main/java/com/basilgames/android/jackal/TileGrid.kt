@@ -31,6 +31,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 tileView.id = ImageView.generateViewId()
                 tileView.setImageResource(R.drawable.tile_cover)
                 tileView.setImageRes(R.drawable.ball)
+                //tileView.rotation = 90F
                 tileView.setFaceUp(false)
 
 

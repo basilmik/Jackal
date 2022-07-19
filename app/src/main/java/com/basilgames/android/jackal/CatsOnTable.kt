@@ -71,7 +71,8 @@ class CatsOnTable {
             //Log.d(TAG, "get view id ${cat.viewId}")
             val catView = ImageView(tableView.context.applicationContext)
 
-            catView.id = cat.viewId
+            catView.id = ImageView.generateViewId()//cat.viewId
+            cat.viewId = catView.id
             catView.left = cat.leftMargin
             catView.top = cat.topMargin
 
