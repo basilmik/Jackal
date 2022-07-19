@@ -23,6 +23,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     fun createNewGrid(){
 
         clearDB()
+
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
 
