@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var tileGrid: TileGrid
     lateinit var cats: CatsOnTable
 
-
     var count = 1
 
     @SuppressLint("ClickableViewAccessibility")
