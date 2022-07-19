@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var cats: CatsOnTable
 
 
+
     var count = 1
 
     @SuppressLint("ClickableViewAccessibility")
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         tileGrid = TileGrid(this)
         cats = CatsOnTable()
+
 
 
         addGridButton.setOnClickListener { // initialising new layout

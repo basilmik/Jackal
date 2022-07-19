@@ -17,25 +17,51 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     private val tileList = db.getTiles2()
     private val den = resources.displayMetrics.density
 
+    private val N = 13
     var isGridSet = false
 
     // create new grid
     fun createNewGrid(){
 
         clearDB()
+        val cardSet= CardSet()
+        cardSet.mixCardSet()
 
-        for (columnIndex in 0..12) {
+        /*for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
+
+
+            }
+        }*/
+
+        for (columnIndex in 0 until N) {
+            for (rowIndex in 0 until N) {
 
                 // new tile with params
                 val tileView = TileView(context)
                 tileView.id = ImageView.generateViewId()
-                tileView.setImageResource(R.drawable.tile_cover)
-                tileView.setImageRes(R.drawable.ball)
+                tileView.setImageResource(R.drawable.cover)
+                //tileView.setImageRes(R.drawable.ball)
+
+                if (columnIndex == 1 && rowIndex == 1 || columnIndex == 1 && rowIndex == N-2
+                    || columnIndex == N-2 && rowIndex == 1 || columnIndex == N-2 && rowIndex == N-2)
+                {
+                    tileView.setImageRes(R.drawable.sea)
+                    tileView.flipTile()
+
+                }
+                else
+                if (columnIndex == 0 || columnIndex == N-1 || rowIndex == 0 || rowIndex == N-1)
+                {
+                    tileView.setImageRes(R.drawable.sea)
+                    tileView.flipTile()
+                }
+                else {
+                    tileView.setImageRes(cardSet.getNewCard())
+                    tileView.flipTile()
+                }
+
                 //tileView.rotation = 90F
-                tileView.setFaceUp(false)
-
-
                // add into the grid layout
                 this.addView(tileView, (100 * den).toInt(), (100 * den).toInt())
 
