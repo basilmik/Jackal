@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var cats: CatsOnTable
 
     var count = 1
+    var minwh = 0
+    var sideLen = 0
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         val h = applicationContext.resources.displayMetrics.heightPixels
         val w = applicationContext.resources.displayMetrics.widthPixels
-        val minwh = min(h, w)
-        val sideLen = minwh/13
+        minwh = min(h, w)
+        sideLen = minwh / 13
 
         tableView = findViewById(R.id.table_view)
         addViewButton = findViewById(R.id.addview)
@@ -67,14 +69,13 @@ class MainActivity : AppCompatActivity() {
             tileGrid.loadFromDB(sideLen, sideLen)
             tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
-            if (cats.getSize() > 0)
-            cats.loadFromDB(tableView)
-        }else
+            //if (cats.getSize() > 0)
+                cats.loadFromDB(tableView)
+        }
+        else
         {
-
             tileGrid.removeAllViews()
-            tileGrid.clearDB()
-            cats.clearDB()
+            tableView.removeView(tileGrid)
 
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
@@ -82,24 +83,12 @@ class MainActivity : AppCompatActivity() {
 
             tileGrid.createNewGrid(sideLen, sideLen)
             cats.clearDB()
+
         }
 
 
-        addGridButton.setOnClickListener { // initialising new layout
-            tableView.removeView(tileGrid)
-            //tileGrid.removeAllViews()
-            //tileGrid.clearDB()
-            //cats.clearDB()
-            //if (!tileGrid.isGridSet)
-
-                tileGrid.columnCount = 13
-                tileGrid.rowCount = 13
-                tableView.addChild(tileGrid, 0, 0, minwh, minwh)
-
-
-                tileGrid.createNewGrid(sideLen, sideLen)
-                cats.clearDB()
-
+        addGridButton.setOnClickListener {
+            createNewTileGrid()
         }
 
         deleteButton.setOnClickListener {
@@ -139,14 +128,13 @@ class MainActivity : AppCompatActivity() {
 
             imageView.id = ImageView.generateViewId()
 
-            val x: Int = count * 50
-            val y: Int = count * 50 + 100
+            val x: Int = count * 25
+            val y: Int = count * 25 + 50
             count++
 
 
-            addImageView(imageView, x, y, 100, 100)
+            addImageView(imageView, x, y, 10, 10)
             cats.addCatToDB(imageView, R.drawable.cat_square)
-
 
         }
 
@@ -154,11 +142,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onStop() {
-        super.onStop()
-        tileGrid.saveToDB()
+    override fun onPause() {
+        if (tileGrid.getSize() != 0) tileGrid.saveToDB()
         val den = resources.displayMetrics.density
-        cats.saveToDB(tableView, den)
+        if (cats.getSize() != 0) cats.saveToDB(tableView, den)
+        super.onPause()
 
     }
 
@@ -171,17 +159,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_new_game -> {
-                textView.text = "New game!"
+                textView.text = "Restart"
+                createNewTileGrid()
                 return true
             }
             R.id.action_rules -> {
                 textView.text = "Rules"
                 return true
             }
-            R.id.action_about -> {
-                textView.text = "About"
-                return true
-            }
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -191,6 +177,18 @@ class MainActivity : AppCompatActivity() {
         tableView.addChild(imageView, x, y, _w, _h)
     }
 
+    private fun createNewTileGrid()
+    {
+        tileGrid.removeAllViews()
+        //tableView.removeView(tileGrid)
+        tableView.removeAllViews()
+        tileGrid.columnCount = 13
+        tileGrid.rowCount = 13
+        tableView.addChild(tileGrid, 0, 0, minwh, minwh)
+
+        tileGrid.createNewGrid(sideLen, sideLen)
+        cats.clearDB()
+    }
 
 }
 

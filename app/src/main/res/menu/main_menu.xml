@@ -6,16 +6,13 @@
     <item
         android:id="@+id/action_new_game"
         android:orderInCategory="100"
-        android:title="new game"
-        app:showAsAction="never"/>
+        android:title="Restart"
+        app:showAsAction="never"
+        android:src="@drawable/ball"/>
     <item
         android:id="@+id/action_rules"
         android:orderInCategory="100"
-        android:title="rules"
+        android:title="About"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_about"
-        android:orderInCategory="100"
-        android:title="about app"
-        app:showAsAction="never"/>
+
 </menu>

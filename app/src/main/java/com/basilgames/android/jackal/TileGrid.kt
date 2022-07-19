@@ -38,16 +38,10 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
                 var newImageRes = 0
 
-                if (columnIndex == 1 && columnIndex == 1
-                    || columnIndex == 1 && rowIndex == N-2
-                    || columnIndex == N-2 && rowIndex == 1
-                    || columnIndex == N-2 && rowIndex == N-2
-                    || columnIndex == 0
-                    || columnIndex == N-1
-                    || rowIndex == 0
-                    || rowIndex == N-1)
+                if ((columnIndex == 1 && rowIndex == 1 || columnIndex == 1 && rowIndex == N-2
+                            || columnIndex == N-2 && rowIndex == 1 || columnIndex == N-2 && rowIndex == N-2)
+                    || (columnIndex == 0 || columnIndex == N-1 || rowIndex == 0 || rowIndex == N-1))
                 {
-                    Log.d("sea", "addChild c:${columnIndex} r:${rowIndex}")
                     newImageRes = R.drawable.sea
                     tileView.setImageRes(newImageRes)
                     tileView.setImageResource(R.drawable.sea)
@@ -55,7 +49,6 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                     tileView.rotation = 90F*(0..4).random()
                 }
                 else {
-                    Log.d("diss", "addChild c:${columnIndex} r:${rowIndex}")
                     newImageRes = cardSet.getNewCard()
                     tileView.setImageRes(newImageRes)
                     tileView.setFaceUp(false)
@@ -63,14 +56,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 }
 
                 // add into the grid layout
-               // this.addView(tileView, _w, _h)
-                val row = spec(rowIndex, 1)
-                val column = spec(columnIndex, 1)
-                val gridLayoutParam = LayoutParams(row, column)
-                gridLayoutParam.height = _h
-                gridLayoutParam.width = _w
+                this.addView(tileView, _w, _h)
 
-                this.addView(tileView, gridLayoutParam)
                 Log.d("cats", "addChild h:${tileView.height} w:${tileView.width}")
                 // new line into db
                 val tile: Tile = Tile()
