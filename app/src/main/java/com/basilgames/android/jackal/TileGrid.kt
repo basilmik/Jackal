@@ -35,18 +35,23 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 tileView.id = ImageView.generateViewId()
                 tileView.setImageResource(R.drawable.cover)
 
+                var newImageRes = 0
+
                 if ((columnIndex == 1 && rowIndex == 1 || columnIndex == 1 && rowIndex == N-2
                     || columnIndex == N-2 && rowIndex == 1 || columnIndex == N-2 && rowIndex == N-2)
                     || (columnIndex == 0 || columnIndex == N-1 || rowIndex == 0 || rowIndex == N-1))
                 {
-                    tileView.setImageRes(R.drawable.sea)
+                    newImageRes = R.drawable.sea
+                    tileView.setImageRes(newImageRes)
                     tileView.setImageResource(R.drawable.sea)
                     tileView.flipTile()
+                    tileView.rotation = 90F*(0..4).random()
                 }
                 else {
-                    tileView.setImageRes(cardSet.getNewCard())
+                    newImageRes = cardSet.getNewCard()
+                    tileView.setImageRes(newImageRes)
                     tileView.setFaceUp(false)
-                    tileView.rotation = 90F*(0..4).random()
+                    tileView.rotation = 90F*(0..6).random()*(0..7).random()
                 }
 
                 // add into the grid layout
@@ -55,7 +60,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 Log.d("cats", "addChild h:${tileView.height} w:${tileView.width}")
                 // new line into db
                 val tile: Tile = Tile()
-                tile.imageRes = R.drawable.ball
+                tile.imageRes = newImageRes
                 tile.isFaceUp = false
                 tile.row = rowIndex
                 tile.col = columnIndex
