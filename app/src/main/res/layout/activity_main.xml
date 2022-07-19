@@ -6,6 +6,8 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".MainActivity"
+    android:background="@color/white"
+
 >
 
     <com.basilgames.android.jackal.ZoomableView
@@ -18,13 +20,6 @@ tools:context=".MainActivity"
 
 
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="150dp"
-        android:src="@drawable/ball"
-        />
 
     <Button
         android:id="@+id/addview"

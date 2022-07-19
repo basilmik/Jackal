@@ -302,10 +302,15 @@ public class ZoomableView extends ViewGroup {
                         {
                             if (i != -1)
                             {
-                                int tileTouchedId = TileRepository.get().getTile2(i, j).getViewId();
-
-                                TileView tileTouched = findViewById(tileTouchedId);
-                                tileTouched.flipTile();
+                                if ((i == 0 || j == 0 || i == 12 || j == 12) ||(i == 1 && j == 1 || i == 1 && j == 11
+                                    || i == 11 && j == 1 || i == 11 && j == 11))
+                                { }
+                                else
+                                {
+                                    int tileTouchedId = TileRepository.get().getTile2(i, j).getViewId();
+                                    TileView tileTouched = findViewById(tileTouchedId);
+                                    tileTouched.flipTile();
+                                }
                             }
                         }
                     movedFlag = false;

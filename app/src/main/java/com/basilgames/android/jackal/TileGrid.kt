@@ -41,27 +41,21 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 val tileView = TileView(context)
                 tileView.id = ImageView.generateViewId()
                 tileView.setImageResource(R.drawable.cover)
-                //tileView.setImageRes(R.drawable.ball)
 
-                if (columnIndex == 1 && rowIndex == 1 || columnIndex == 1 && rowIndex == N-2
+                if ((columnIndex == 1 && rowIndex == 1 || columnIndex == 1 && rowIndex == N-2
                     || columnIndex == N-2 && rowIndex == 1 || columnIndex == N-2 && rowIndex == N-2)
+                    || (columnIndex == 0 || columnIndex == N-1 || rowIndex == 0 || rowIndex == N-1))
                 {
                     tileView.setImageRes(R.drawable.sea)
-                    tileView.flipTile()
-
-                }
-                else
-                if (columnIndex == 0 || columnIndex == N-1 || rowIndex == 0 || rowIndex == N-1)
-                {
-                    tileView.setImageRes(R.drawable.sea)
+                    tileView.setImageResource(R.drawable.sea)
                     tileView.flipTile()
                 }
                 else {
                     tileView.setImageRes(cardSet.getNewCard())
-                    tileView.flipTile()
+                    tileView.setFaceUp(false)
                 }
 
-                //tileView.rotation = 90F
+                tileView.rotation = 90F*(0..4).random()
                // add into the grid layout
                 this.addView(tileView, (100 * den).toInt(), (100 * den).toInt())
 
@@ -105,7 +99,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
             Log.d(TAG, "id = ${tile.id}")
             val tileView = TileView(context)
             tileView.setImageRes(tile.imageRes)
-            tileView.setImageResource(R.drawable.tile_cover)
+            tileView.setImageResource(R.drawable.cover)
             tileView.setFaceUp(tile.isFaceUp)
             if (tileView.isFaceUp()) { // open card
                 tileView.setImageResource(tile.imageRes)
