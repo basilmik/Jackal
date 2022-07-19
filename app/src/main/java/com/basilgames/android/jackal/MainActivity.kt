@@ -13,8 +13,6 @@ import java.security.AccessController.getContext
 
 private const val TAG = "MainActivity"
 
-//var tileIdArray: Array<Array<Int>> = Array(13) { Array(13) { _ -> 0 } }
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,8 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var tileGrid: TileGrid
     lateinit var cats: CatsOnTable
-
-
 
 
     var count = 1
@@ -78,15 +74,6 @@ class MainActivity : AppCompatActivity() {
 
         loadButton.setOnClickListener {
             if (!tileGrid.isGridSet) {
-                /*val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams()
-                gridLayoutParam.height = (h * resources.displayMetrics.density).toInt()
-                gridLayoutParam.width = (w * resources.displayMetrics.density).toInt()
-
-                tileGrid.columnCount = 13
-                tileGrid.rowCount = 13
-                //tableView.addView(tileGrid, gridLayoutParam)
-                tableView.addChild(tileGrid, 0,0, w, h)*/
-
 
                 tileGrid.columnCount = 13
                 tileGrid.rowCount = 13
