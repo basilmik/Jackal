@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "on btn", Toast.LENGTH_LONG).show()
 
             intent = Intent(applicationContext, GameActivity::class.java)
-
+            intent.putExtra("key", 169);
             startActivity(intent)
             finish()
 
