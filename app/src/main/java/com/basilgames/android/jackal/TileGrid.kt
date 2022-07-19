@@ -24,9 +24,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     fun createNewGrid(_h: Int, _w: Int){
 
         val db: TileRepository = TileRepository.get()
-        val tileList = db.getTiles2()
         clearDB()
-        val cardSet= CardSet()
+        val cardSet = CardSet()
         cardSet.mixCardSet()
 
         for (columnIndex in 0 until N) {
@@ -39,14 +38,16 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
                 var newImageRes = 0
 
-                if ((columnIndex == 1 && columnIndex == 1 || columnIndex == 1 && rowIndex == N-2
-                    || columnIndex == N-2 && rowIndex == 1 || columnIndex == N-2 && rowIndex == N-2)
-                    || (columnIndex == 0 || columnIndex == N-1 || rowIndex == 0 || rowIndex == N-1))
+                if (columnIndex == 1 && columnIndex == 1
+                    || columnIndex == 1 && rowIndex == N-2
+                    || columnIndex == N-2 && rowIndex == 1
+                    || columnIndex == N-2 && rowIndex == N-2
+                    || columnIndex == 0
+                    || columnIndex == N-1
+                    || rowIndex == 0
+                    || rowIndex == N-1)
                 {
-                    Toast.makeText(
-                        context.applicationContext,
-                        " sea $columnIndex $columnIndex", Toast.LENGTH_LONG
-                    ).show()
+                    Log.d("sea", "addChild c:${columnIndex} r:${rowIndex}")
                     newImageRes = R.drawable.sea
                     tileView.setImageRes(newImageRes)
                     tileView.setImageResource(R.drawable.sea)
@@ -54,6 +55,7 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                     tileView.rotation = 90F*(0..4).random()
                 }
                 else {
+                    Log.d("diss", "addChild c:${columnIndex} r:${rowIndex}")
                     newImageRes = cardSet.getNewCard()
                     tileView.setImageRes(newImageRes)
                     tileView.setFaceUp(false)
@@ -61,8 +63,14 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
                 }
 
                 // add into the grid layout
-                this.addView(tileView, _w, _h)
+               // this.addView(tileView, _w, _h)
+                val row = spec(rowIndex, 1)
+                val column = spec(columnIndex, 1)
+                val gridLayoutParam = LayoutParams(row, column)
+                gridLayoutParam.height = _h
+                gridLayoutParam.width = _w
 
+                this.addView(tileView, gridLayoutParam)
                 Log.d("cats", "addChild h:${tileView.height} w:${tileView.width}")
                 // new line into db
                 val tile: Tile = Tile()

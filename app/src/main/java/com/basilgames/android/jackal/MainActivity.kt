@@ -17,13 +17,11 @@ private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tileField: GridLayout
-
     private lateinit var tableView: ZoomableView
 
     private lateinit var addViewButton: Button
     private lateinit var addGridButton: Button
-    //private lateinit var deleteButton: Button
+    private lateinit var deleteButton: Button
     //private lateinit var loadButton: Button
     private lateinit var saveButton: Button
     private lateinit var textView: TextView
@@ -47,33 +45,37 @@ class MainActivity : AppCompatActivity() {
         tableView = findViewById(R.id.table_view)
         addViewButton = findViewById(R.id.addview)
         addGridButton = findViewById(R.id.addgrid)
-        //deleteButton = findViewById(R.id.deletegrid)
+        deleteButton = findViewById(R.id.deletegrid)
         //loadButton = findViewById(R.id.loadgrid)
         textView = findViewById(R.id.textView)
         saveButton = findViewById(R.id.savegrid)
 
-        tileGrid = TileGrid(this)
-        cats = CatsOnTable()
+
         //tileGrid.clearDB()
         //cats.clearDB()
         /*Toast.makeText(
             applicationContext,
             " sea ${tileGrid.getSize()}", Toast.LENGTH_LONG
         ).show()*/
+        tileGrid = TileGrid(this)
+        cats = CatsOnTable()
 
         if (tileGrid.getSize() > 0)
         {
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
-            tableView.addChild(tileGrid, 0, 0, minwh, minwh)
-
             tileGrid.loadFromDB(sideLen, sideLen)
-            //tileGrid.top = (h-w)/2
+            tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
             if (cats.getSize() > 0)
             cats.loadFromDB(tableView)
         }else
         {
+
+            tileGrid.removeAllViews()
+            tileGrid.clearDB()
+            cats.clearDB()
+
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
             tableView.addChild(tileGrid, 0, 0, minwh, minwh)
@@ -84,20 +86,26 @@ class MainActivity : AppCompatActivity() {
 
 
         addGridButton.setOnClickListener { // initialising new layout
-            if (!tileGrid.isGridSet) {
+            tableView.removeView(tileGrid)
+            //tileGrid.removeAllViews()
+            //tileGrid.clearDB()
+            //cats.clearDB()
+            //if (!tileGrid.isGridSet)
+
                 tileGrid.columnCount = 13
                 tileGrid.rowCount = 13
                 tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
+
                 tileGrid.createNewGrid(sideLen, sideLen)
                 cats.clearDB()
-            }
+
         }
 
-        /*deleteButton.setOnClickListener {
+        deleteButton.setOnClickListener {
             tileGrid.clearDB()
             cats.clearDB()
-        }*/
+        }
 
 
 
@@ -135,12 +143,22 @@ class MainActivity : AppCompatActivity() {
             val y: Int = count * 50 + 100
             count++
 
+
             addImageView(imageView, x, y, 100, 100)
             cats.addCatToDB(imageView, R.drawable.cat_square)
 
 
         }
 
+
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        tileGrid.saveToDB()
+        val den = resources.displayMetrics.density
+        cats.saveToDB(tableView, den)
 
     }
 
