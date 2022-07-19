@@ -4,17 +4,24 @@ package com.basilgames.android.jackal;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.WindowManager;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 
 import com.basilgames.android.jackal.database.Tile;
 import com.basilgames.android.jackal.database.TileRepository;
@@ -174,22 +181,35 @@ public class ZoomableView extends ViewGroup {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     void calcTileId(float  x, float y)
     {
+
+        int w;
+
+        final WindowManager wm = (WindowManager) getContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        final Display d = wm.getDefaultDisplay();
+        final DisplayMetrics met = new DisplayMetrics();
+        d.getMetrics(met);
+        w = met.widthPixels;
+        int sideLen = w/13;
         float den = getResources().getDisplayMetrics().density;
         screenPointsToScaledPoints(new float[] {x, y});
-        Toast.makeText(getContext().getApplicationContext(),"x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
-        if (x < 0 || x > 1080 * den || y < 0 || y > 1080* den)
+        //Toast.makeText(getContext().getApplicationContext(),"w = " + w + "x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
+        if (x < 0 || x > w * den || y < 0 || y > w * den)
             i = -1;
         else {
             for (i = 0; i < 13; i++) {
-                if (i * (83)  <= x && (i + 1) * (83)  >= x) {
+                if (i * (sideLen)  <= x && (i + 1) * (sideLen)  >= x) {
+                    //Toast.makeText(getContext().getApplicationContext()," i" + i, Toast.LENGTH_LONG).show();
                     break;
                 }
             }
 
             for (j = 0; j < 13; j++) {
-                if (j * (83)  <= y && (j + 1) * (83)  >= y) {
+                if (j * (sideLen)  <= y && (j + 1) * (sideLen)  >= y) {
+                    //Toast.makeText(getContext().getApplicationContext()," j" + j, Toast.LENGTH_LONG).show();
                     break;
                 }
             }
@@ -229,6 +249,7 @@ public class ZoomableView extends ViewGroup {
     int topM;
     boolean movedFlag = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event)
@@ -300,6 +321,8 @@ public class ZoomableView extends ViewGroup {
                     if (!movedFlag)
                         if (upTime - lastDownTime > android.view.ViewConfiguration.getLongPressTimeout() * 2L)
                         {
+                            //Toast.makeText(getContext().getApplicationContext()," long press i "+ i + " j " + j, Toast.LENGTH_LONG).show();
+
                             if (i != -1)
                             {
                                 if ((i == 0 || j == 0 || i == 12 || j == 12) ||(i == 1 && j == 1 || i == 1 && j == 11
@@ -325,11 +348,14 @@ public class ZoomableView extends ViewGroup {
                     final float density = getResources().getDisplayMetrics().density;
                     if (mode == DRAG)
                     {
-                        movedFlag = true;
+                        Toast.makeText(getContext().getApplicationContext()," action move", Toast.LENGTH_LONG).show();
+
                         matrix.set(savedMatrix);
 
                         float dx = event.getX() - start.x;
                         float dy = event.getY() - start.y;
+                        //if (dx > 100 || dy > 100)
+                        movedFlag = true;
                         matrix.postTranslate(dx, dy);
                         matrix.invert(matrixInverse);
                         if (Math.max(Math.abs(start.x - event.getX()), Math.abs(start.y - event.getY())) > 20.f * density)

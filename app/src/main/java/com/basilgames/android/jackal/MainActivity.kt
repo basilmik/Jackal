@@ -4,11 +4,10 @@ package com.basilgames.android.jackal
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.GridLayout
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.Integer.min
 
@@ -24,9 +23,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var addViewButton: Button
     private lateinit var addGridButton: Button
-    private lateinit var deleteButton: Button
-    private lateinit var loadButton: Button
+    //private lateinit var deleteButton: Button
+    //private lateinit var loadButton: Button
     private lateinit var saveButton: Button
+    private lateinit var textView: TextView
 
     lateinit var tileGrid: TileGrid
     lateinit var cats: CatsOnTable
@@ -36,60 +36,72 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-         val h = applicationContext.resources.displayMetrics.heightPixels
-         val w = applicationContext.resources.displayMetrics.widthPixels
-         val minwh = min(h, w)
-         val sideLen = minwh/13
         setContentView(R.layout.activity_main)
+
+
+        val h = applicationContext.resources.displayMetrics.heightPixels
+        val w = applicationContext.resources.displayMetrics.widthPixels
+        val minwh = min(h, w)
+        val sideLen = minwh/13
+
         tableView = findViewById(R.id.table_view)
         addViewButton = findViewById(R.id.addview)
         addGridButton = findViewById(R.id.addgrid)
-        deleteButton = findViewById(R.id.deletegrid)
-        loadButton = findViewById(R.id.loadgrid)
+        //deleteButton = findViewById(R.id.deletegrid)
+        //loadButton = findViewById(R.id.loadgrid)
+        textView = findViewById(R.id.textView)
         saveButton = findViewById(R.id.savegrid)
 
         tileGrid = TileGrid(this)
         cats = CatsOnTable()
+        //tileGrid.clearDB()
+        //cats.clearDB()
+        /*Toast.makeText(
+            applicationContext,
+            " sea ${tileGrid.getSize()}", Toast.LENGTH_LONG
+        ).show()*/
 
-        val next = findViewById<View>(R.id.gameactivity) as Button
-       /* next.setOnClickListener {
-            fun onClick(view: View) {
-                val myIntent = Intent(view.context, GameActivity::class.java)
-                startActivityForResult(myIntent, 0)
-            }
-        }*/
-        next.setOnClickListener{
-            Toast.makeText(applicationContext, "on btn", Toast.LENGTH_LONG).show()
+        if (tileGrid.getSize() > 0)
+        {
+            tileGrid.columnCount = 13
+            tileGrid.rowCount = 13
+            tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
-            intent = Intent(applicationContext, GameActivity::class.java)
-            intent.putExtra("key", 169);
-            startActivity(intent)
-            finish()
+            tileGrid.loadFromDB(sideLen, sideLen)
+            //tileGrid.top = (h-w)/2
 
+            if (cats.getSize() > 0)
+            cats.loadFromDB(tableView)
+        }else
+        {
+            tileGrid.columnCount = 13
+            tileGrid.rowCount = 13
+            tableView.addChild(tileGrid, 0, 0, minwh, minwh)
+
+            tileGrid.createNewGrid(sideLen, sideLen)
+            cats.clearDB()
         }
 
 
         addGridButton.setOnClickListener { // initialising new layout
             if (!tileGrid.isGridSet) {
-
                 tileGrid.columnCount = 13
                 tileGrid.rowCount = 13
                 tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
                 tileGrid.createNewGrid(sideLen, sideLen)
                 cats.clearDB()
-
             }
         }
 
-        deleteButton.setOnClickListener {
+        /*deleteButton.setOnClickListener {
             tileGrid.clearDB()
             cats.clearDB()
-        }
+        }*/
 
 
-        loadButton.setOnClickListener {
+
+        /*loadButton.setOnClickListener {
             if (!tileGrid.isGridSet) {
 
                 tileGrid.columnCount = 13
@@ -100,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 //tileGrid.top = (h-w)/2
                 cats.loadFromDB(tableView)
             }
-        }
+        }*/
 
 
 
@@ -132,6 +144,29 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_new_game -> {
+                textView.text = "New game!"
+                return true
+            }
+            R.id.action_rules -> {
+                textView.text = "Rules"
+                return true
+            }
+            R.id.action_about -> {
+                textView.text = "About"
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     fun addImageView(imageView: ImageView, x: Int, y: Int, _w: Int, _h: Int)
     {

@@ -84,6 +84,10 @@ class CatsOnTable {
         Log.d(TAG, "loadFromDB.End")
     }
 
+    fun getSize(): Int{
+        return  db.getCats().size
+    }
+
 
 
 }

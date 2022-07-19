@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.Toast
 import com.basilgames.android.jackal.database.Tile
 import com.basilgames.android.jackal.database.TileRepository
 
@@ -12,8 +13,8 @@ private const val TAG2 = "TileGrid2"
 
 class TileGrid(context: Context?) : GridLayout(context!!) {
 
-    private val db: TileRepository = TileRepository.get()
-    private val tileList = db.getTiles2()
+   // private val db: TileRepository = TileRepository.get()
+    //private val tileList = db.getTiles2()
     private val den = resources.displayMetrics.density
 
     private val N = 13
@@ -22,10 +23,11 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     // create new grid
     fun createNewGrid(_h: Int, _w: Int){
 
+        val db: TileRepository = TileRepository.get()
+        val tileList = db.getTiles2()
         clearDB()
         val cardSet= CardSet()
         cardSet.mixCardSet()
-
 
         for (columnIndex in 0 until N) {
             for (rowIndex in 0 until N) {
@@ -37,10 +39,14 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
                 var newImageRes = 0
 
-                if ((columnIndex == 1 && rowIndex == 1 || columnIndex == 1 && rowIndex == N-2
+                if ((columnIndex == 1 && columnIndex == 1 || columnIndex == 1 && rowIndex == N-2
                     || columnIndex == N-2 && rowIndex == 1 || columnIndex == N-2 && rowIndex == N-2)
                     || (columnIndex == 0 || columnIndex == N-1 || rowIndex == 0 || rowIndex == N-1))
                 {
+                    Toast.makeText(
+                        context.applicationContext,
+                        " sea $columnIndex $columnIndex", Toast.LENGTH_LONG
+                    ).show()
                     newImageRes = R.drawable.sea
                     tileView.setImageRes(newImageRes)
                     tileView.setImageResource(R.drawable.sea)
@@ -74,6 +80,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
 
     fun saveToDB()
     {
+        val db: TileRepository = TileRepository.get()
+        val tileList = db.getTiles2()
 
         for (columnIndex in 0..12) {
             for (rowIndex in 0..12) {
@@ -94,7 +102,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     }
 
     fun loadFromDB(h: Int, w: Int)
-    {
+    {   val db: TileRepository = TileRepository.get()
+        val tileList = db.getTiles2()
         for (tile in tileList) {
             Log.d(TAG, "id = ${tile.id}")
             val tileView = TileView(context)
@@ -122,9 +131,16 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
     }
 
 
+    fun getSize(): Int {
+        val db: TileRepository = TileRepository.get()
+        val tileList = db.getTiles2()
+        return tileList.size
+    }
 
     fun clearDB()
     {
+        val db: TileRepository = TileRepository.get()
+        val tileList = db.getTiles2()
         db.deleteTiles()
     }
 

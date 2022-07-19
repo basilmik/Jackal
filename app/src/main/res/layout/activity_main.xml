@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,24 +12,15 @@ tools:context=".MainActivity"
 
 >
 
+
     <com.basilgames.android.jackal.ZoomableView
         android:id="@+id/table_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
     </com.basilgames.android.jackal.ZoomableView>
 
-    <Button
-        android:id="@+id/gameactivity"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_200"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="150dp"
-        android:text="GAME"
-        android:textColor="@color/black"
-        />
+
 
 
     <Button
@@ -49,11 +42,17 @@ tools:context=".MainActivity"
         android:layout_marginTop="620dp"
         android:backgroundTint="#80CBC4"
         android:gravity="center"
-        android:text="Add Grid"
+        android:text="New Game"
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="480dp"
         android:textColor="@color/black"
-        />
-
-    <Button
+        android:text="Hello World!"/>
+    <!--<Button
         android:id="@+id/deletegrid"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
@@ -75,7 +74,8 @@ tools:context=".MainActivity"
         android:gravity="center"
         android:text="load"
         android:textColor="@color/black"
-        />
+        />-->
+
     <Button
         android:id="@+id/savegrid"
         android:layout_width="90dp"
