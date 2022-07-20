@@ -63,9 +63,10 @@ class MainActivity : AppCompatActivity() {
         tileGrid = TileGrid(this)
         cats = CatsOnTable()
 
-        if (tileGrid.getSize() > 0)
+        if (tileGrid.getSize() > 0 && cats.getSize() > 0)
+            //if (cats.getSize() > 0)
         {
-            Toast.makeText(applicationContext, "${tileGrid.getSize()}", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "${tileGrid.getSize()} ${cats.getSize()}", Toast.LENGTH_LONG).show()
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
             tileGrid.loadFromDB(sideLen, sideLen)
@@ -78,13 +79,7 @@ class MainActivity : AppCompatActivity() {
         {
             Toast.makeText(applicationContext, "DB is empty", Toast.LENGTH_LONG).show()
 
-            tileGrid.columnCount = 13
-            tileGrid.rowCount = 13
-            tableView.addChild(tileGrid, 0, 0, minwh, minwh)
-
-            tileGrid.createNewGrid(sideLen, sideLen)
-            cats.clearDB()
-            addShipsToTable()
+            createNewTileGrid()
         }
 
 
@@ -93,32 +88,6 @@ class MainActivity : AppCompatActivity() {
             closeAboutButton.isClickable = false
         }
 
-       /* deleteButton.setOnClickListener {
-            tileGrid.clearDB()
-            cats.clearDB()
-        }*/
-
-
-
-        /*loadButton.setOnClickListener {
-            if (!tileGrid.isGridSet) {
-
-                tileGrid.columnCount = 13
-                tileGrid.rowCount = 13
-                tableView.addChild(tileGrid, 0, 0, minwh, minwh)
-
-                tileGrid.loadFromDB(sideLen, sideLen)
-                //tileGrid.top = (h-w)/2
-                cats.loadFromDB(tableView)
-            }
-        }*/
-
-
-        /*saveButton.setOnClickListener {
-            tileGrid.saveToDB()
-            val den = resources.displayMetrics.density
-            cats.saveToDB(tableView, den)
-        }*/
 
 
 
@@ -175,6 +144,22 @@ class MainActivity : AppCompatActivity() {
         addImageView(imageView4, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
         cats.addCatToDB(imageView4, R.drawable.ship4)
 
+
+    }
+
+    private fun addPiratesToTable()
+    {
+        for (i in 0 until 4)
+        {
+            val imageView = ImageView(this@MainActivity)
+            imageView.setImageResource(R.drawable.ship1)
+            imageView.id = ImageView.generateViewId()
+            val den = resources.displayMetrics.density
+            var x = ((100 + i*10)/den).toInt()
+            val y = ((minwh + 100 + i*10)/den).toInt()
+            addImageView(imageView, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
+            cats.addCatToDB(imageView, R.drawable.ship1)
+        }
     }
 
     override fun onPause() {
@@ -198,6 +183,7 @@ class MainActivity : AppCompatActivity() {
             R.id.action_new_game -> {
                 //textView.text = "Restart"
                 createNewTileGrid()
+
                 return true
             }
             R.id.action_rules -> {
@@ -239,6 +225,7 @@ class MainActivity : AppCompatActivity() {
         tileGrid.createNewGrid(sideLen, sideLen)
         cats.clearDB()
         addShipsToTable()
+        addPiratesToTable()
     }
 
 }
