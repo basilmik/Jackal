@@ -103,6 +103,13 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
             Log.d(TAG, "id = ${tile.id}")
             val tileView = TileView(context)
             tileView.setImageRes(tile.imageRes)
+
+            if ((tile.col == 1 && tile.row == 1 || tile.col == 1 && tile.row == N-2
+                        || tile.col == N-2 && tile.row == 1 || tile.col == N-2 && tile.row == N-2)
+                || (tile.col == 0 || tile.col == N-1 || tile.row == 0 || tile.row == N-1)) {
+                tileView.setImageResource(tile.imageRes)
+            }
+
             tileView.setImageResource(R.drawable.cover)
             tileView.setFaceUp(tile.isFaceUp)
             if (tileView.isFaceUp()) { // open card

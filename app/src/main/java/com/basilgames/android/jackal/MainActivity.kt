@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         cats = CatsOnTable()
 
         if (tileGrid.getSize() > 0 && cats.getSize() > 0)
-            //if (cats.getSize() > 0)
         {
             Toast.makeText(applicationContext, "${tileGrid.getSize()} ${cats.getSize()}", Toast.LENGTH_LONG).show()
             tileGrid.columnCount = 13
@@ -78,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         else
         {
             Toast.makeText(applicationContext, "DB is empty", Toast.LENGTH_LONG).show()
-
             createNewTileGrid()
         }
 
@@ -149,22 +147,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun addPiratesToTable()
     {
-        for (i in 0 until 4)
+        val playersList = listOf(
+            R.drawable.ship1,
+            R.drawable.ship2,
+            R.drawable.ship3,
+            R.drawable.ship4)
+
+        for (p in 0 until 4)
+        for (i in 0 until 3)
         {
             val imageView = ImageView(this@MainActivity)
-            imageView.setImageResource(R.drawable.ship1)
+            imageView.setImageResource(playersList[p])
             imageView.id = ImageView.generateViewId()
             val den = resources.displayMetrics.density
-            var x = ((100 + i*10)/den).toInt()
-            val y = ((minwh + 100 + i*10)/den).toInt()
+            var x = ((500 + p*100)/den).toInt()
+            val y = ((minwh + 100 + i*20)/den).toInt()
             addImageView(imageView, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
-            cats.addCatToDB(imageView, R.drawable.ship1)
+            cats.addCatToDB(imageView, playersList[p])
         }
+
     }
 
     override fun onPause() {
         super.onPause()
-        if (tileGrid.getSize() != 0) tileGrid.saveToDB()
+        tileGrid.saveToDB()
         val den = resources.displayMetrics.density
         cats.saveToDB(tableView, den)
 
@@ -216,14 +222,16 @@ class MainActivity : AppCompatActivity() {
     private fun createNewTileGrid()
     {
         tileGrid.removeAllViews()
-        //tableView.removeView(tileGrid)
         tableView.removeAllViews()
+        cats.clearDB()
+        tileGrid.clearDB()
+
         tileGrid.columnCount = 13
         tileGrid.rowCount = 13
         tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
         tileGrid.createNewGrid(sideLen, sideLen)
-        cats.clearDB()
+
         addShipsToTable()
         addPiratesToTable()
     }

@@ -15,6 +15,7 @@ class CatsOnTable {
     fun clearDB()
     {
         db.deleteCats()
+        Log.d(TAG, "catsDeleted size^ ${getSize()}")
     }
 
     fun addCatToDB(catView: ImageView, res: Int)
