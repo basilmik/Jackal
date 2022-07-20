@@ -2,15 +2,14 @@
 
 
 <RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".MainActivity"
-    android:background="@color/white"
-
->
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/sea_background"
+    >
 
 
     <com.basilgames.android.jackal.ZoomableView
@@ -19,17 +18,16 @@ tools:context=".MainActivity"
         android:layout_height="wrap_content"
         />
 
-
-    <!--<Button
-        android:id="@+id/addgrid"
-        android:layout_width="100dp"
+    <TextView
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="620dp"
-        android:backgroundTint="#80CBC4"
-        android:gravity="center"
-        android:text="New Game"
-        android:textColor="@color/black" />-->
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/warning_text"
+        android:textColor="@color/black"/>
+
 
     <ImageButton
         android:id="@+id/addview"
@@ -48,75 +46,159 @@ tools:context=".MainActivity"
         android:layout_height="match_parent"
         android:id="@+id/textView"
         android:visibility="invisible"
+        android:background="@drawable/sea_background"
         tools:ignore="ScrollViewCount"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center|center_horizontal"
             >
 
             <Button
                 android:id="@+id/close_about"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#80CBC4"
+                android:background="@android:color/transparent"
                 android:clickable="false"
                 android:gravity="center|center_horizontal"
                 android:text="Close"
                 android:textColor="@color/black" />
-
             <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/rules_text"
                 android:textColor="@color/black"
-                android:background="@color/purple_200"
-                android:text="Hello World!"
+                >
 
+            </TextView>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/rules1"
                 />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ball"
-                />
-
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/rules2"
+                /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules3"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules4"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules5"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules6"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules7"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules8"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules9"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules10"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules11"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules12"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules13"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules14"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules15"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules16"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules17"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules18"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules19"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules20"
+            /><ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rules21"
+            />
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ball"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/rules22"
                 />
-
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ball"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/rules23"
                 />
-
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ball"
-                />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ball"
-                />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ball"
-                />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ball"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/rules24"
                 />
 
         </LinearLayout>

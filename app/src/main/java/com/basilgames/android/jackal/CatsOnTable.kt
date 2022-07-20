@@ -77,8 +77,10 @@ class CatsOnTable {
 
             catView.id = ImageView.generateViewId()//cat.viewId
             cat.viewId = catView.id
+
             catView.left = cat.leftMargin
             catView.top = cat.topMargin
+            db.updateCat(cat)
 
             Log.d(TAG, "load catView.leftMargin ${cat.leftMargin}")
             catView.setImageResource(cat.imageRes)

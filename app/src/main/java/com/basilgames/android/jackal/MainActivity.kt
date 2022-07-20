@@ -48,18 +48,9 @@ class MainActivity : AppCompatActivity() {
         tableView = findViewById(R.id.table_view)
         addViewButton = findViewById(R.id.addview)
         closeAboutButton = findViewById(R.id.close_about)
-        //deleteButton = findViewById(R.id.deletegrid)
-        //loadButton = findViewById(R.id.loadgrid)
+
         textView = findViewById(R.id.textView)
-        //saveButton = findViewById(R.id.savegrid)
 
-
-        //tileGrid.clearDB()
-        //cats.clearDB()
-        /*Toast.makeText(
-            applicationContext,
-            " sea ${tileGrid.getSize()}", Toast.LENGTH_LONG
-        ).show()*/
         tileGrid = TileGrid(this)
         cats = CatsOnTable()
 
@@ -71,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             tileGrid.loadFromDB(sideLen, sideLen)
             tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
-            //if (cats.getSize() > 0)
             cats.loadFromDB(tableView)
         }
         else
@@ -95,11 +85,11 @@ class MainActivity : AppCompatActivity() {
             imageView.setImageResource(R.drawable.coin2)
 
             imageView.id = ImageView.generateViewId()
-
-            val x: Int = 1 * 25
-            val y: Int = 1 * 25 + 50
-            //count++
             val den = resources.displayMetrics.density
+            val x: Int = (w/den).toInt() - 200 - (0..4).random() * 10
+            val y: Int = (h/den).toInt() - 200 -(0..3).random() * 10
+            count++
+
             addImageView(imageView, x, y, (sideLen/(den*2)).toInt(), (sideLen/(den*2)).toInt())
             cats.addCatToDB(imageView, R.drawable.coin2)
 
@@ -187,13 +177,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_new_game -> {
-                //textView.text = "Restart"
-                createNewTileGrid()
 
+                createNewTileGrid()
                 return true
             }
             R.id.action_rules -> {
-                //textView.text = getText(R.string.rules)
+
                 textView.visibility = View.VISIBLE
                 closeAboutButton.isClickable = true
                 return true
