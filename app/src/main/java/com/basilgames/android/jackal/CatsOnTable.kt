@@ -32,8 +32,10 @@ class CatsOnTable {
         Log.d(TAG, "addCatToDB id ${catView.id} l ${catView.left} t ${catView.top} w ${catView.width} h ${catView.height}")
 
         db.addCat(cat)
-        //Log.d(TAG, " catView.leftMargin ${cat.leftMargin} cat.h ${cat.h}")
+
     }
+
+
 
     fun saveToDB(tableView: ZoomableView, den: Float)
     {
@@ -76,7 +78,7 @@ class CatsOnTable {
             Log.d(TAG, "load catView.leftMargin ${cat.leftMargin}")
             catView.setImageResource(cat.imageRes)
 
-            tableView.addChild(catView, cat.leftMargin, cat.topMargin, 10, 10)
+            tableView.addChild(catView, cat.leftMargin, cat.topMargin, cat.w, cat.h)
 
             //Log.d(TAG, "LOAD   catView.leftMargin ${cat.leftMargin} cat.h ${cat.h}")
         }

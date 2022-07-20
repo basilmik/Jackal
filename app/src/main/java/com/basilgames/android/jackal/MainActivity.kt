@@ -32,15 +32,16 @@ class MainActivity : AppCompatActivity() {
     var count = 1
     var minwh = 0
     var sideLen = 0
-
+    var w = 0
+    var h = 0
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        val h = applicationContext.resources.displayMetrics.heightPixels
-        val w = applicationContext.resources.displayMetrics.widthPixels
+        h = applicationContext.resources.displayMetrics.heightPixels
+        w = applicationContext.resources.displayMetrics.widthPixels
         minwh = min(h, w)
         sideLen = minwh / 13
 
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
             tileGrid.createNewGrid(sideLen, sideLen)
             cats.clearDB()
-
+            addShipsToTable()
         }
 
 
@@ -127,10 +128,9 @@ class MainActivity : AppCompatActivity() {
 
             imageView.id = ImageView.generateViewId()
 
-            val x: Int = count * 25
-            val y: Int = count * 25 + 50
-            count++
-
+            val x: Int = 1 * 25
+            val y: Int = 1 * 25 + 50
+            //count++
 
             addImageView(imageView, x, y, 10, 10)
             cats.addCatToDB(imageView, R.drawable.cat_square)
@@ -140,6 +140,43 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun addShipsToTable()
+    {
+        val imageView1 = ImageView(this@MainActivity)
+        val imageView2 = ImageView(this@MainActivity)
+        val imageView3 = ImageView(this@MainActivity)
+        val imageView4 = ImageView(this@MainActivity)
+        var x = 0
+        var y = 0
+        imageView1.setImageResource(R.drawable.ship1)
+        imageView1.id = ImageView.generateViewId()
+        val den = resources.displayMetrics.density
+        x = (100/den).toInt()
+        y = ((minwh + 100)/den).toInt()
+
+        addImageView(imageView1, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
+        cats.addCatToDB(imageView1, R.drawable.ship1)
+
+
+        imageView2.setImageResource(R.drawable.ship2)
+        imageView2.id = ImageView.generateViewId()
+        x = (200/den).toInt()
+        addImageView(imageView2, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
+        cats.addCatToDB(imageView2, R.drawable.ship2)
+
+        imageView3.setImageResource(R.drawable.ship3)
+        imageView3.id = ImageView.generateViewId()
+        x = (300/den).toInt()
+        addImageView(imageView3, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
+        cats.addCatToDB(imageView3, R.drawable.ship3)
+
+        imageView4.setImageResource(R.drawable.ship4)
+        imageView4.id = ImageView.generateViewId()
+        x = (400/den).toInt()
+        addImageView(imageView4, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
+        cats.addCatToDB(imageView4, R.drawable.ship4)
+
+    }
 
     override fun onPause() {
         if (tileGrid.getSize() != 0) tileGrid.saveToDB()
@@ -198,6 +235,7 @@ class MainActivity : AppCompatActivity() {
 
         tileGrid.createNewGrid(sideLen, sideLen)
         cats.clearDB()
+        addShipsToTable()
     }
 
 }

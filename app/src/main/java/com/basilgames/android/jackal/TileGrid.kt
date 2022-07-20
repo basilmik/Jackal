@@ -118,8 +118,8 @@ class TileGrid(context: Context?) : GridLayout(context!!) {
             val column = spec(tile.col, 1)
             val gridLayoutParam = LayoutParams(column, row)
 
-            gridLayoutParam.height = (100 * den).toInt()
-            gridLayoutParam.width = (100 * den).toInt()
+            gridLayoutParam.height = (h).toInt()
+            gridLayoutParam.width = (w).toInt()
             this.addView(tileView, w, h)
         }
         isGridSet = true
