@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         if (tileGrid.getSize() > 0 && cats.getSize() > 0)
         {
-            Toast.makeText(applicationContext, "${tileGrid.getSize()} ${cats.getSize()}", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext, "${tileGrid.getSize()} ${cats.getSize()}", Toast.LENGTH_LONG).show()
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
             tileGrid.loadFromDB(sideLen, sideLen)
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
         else
         {
-            Toast.makeText(applicationContext, "DB is empty", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext, "DB is empty", Toast.LENGTH_LONG).show()
             createNewTileGrid()
         }
 
@@ -138,10 +138,10 @@ class MainActivity : AppCompatActivity() {
     private fun addPiratesToTable()
     {
         val playersList = listOf(
-            R.drawable.ship1,
-            R.drawable.ship2,
-            R.drawable.ship3,
-            R.drawable.ship4)
+            R.drawable.player_black,
+            R.drawable.player_white,
+            R.drawable.player_red,
+            R.drawable.player_yellow)
 
         for (p in 0 until 4)
         for (i in 0 until 3)
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
             val den = resources.displayMetrics.density
             var x = ((500 + p*100)/den).toInt()
             val y = ((minwh + 100 + i*20)/den).toInt()
-            addImageView(imageView, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
+            addImageView(imageView, x, y, (sideLen/(2*den)).toInt(), (sideLen/(2*den)).toInt())
             cats.addCatToDB(imageView, playersList[p])
         }
 

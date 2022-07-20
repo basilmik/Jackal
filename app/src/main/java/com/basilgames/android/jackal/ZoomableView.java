@@ -196,7 +196,7 @@ public class ZoomableView extends ViewGroup {
         int sideLen = w/13;
         float den = getResources().getDisplayMetrics().density;
         screenPointsToScaledPoints(new float[] {x, y});
-        Toast.makeText(getContext().getApplicationContext(),"w = " + w + "x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext().getApplicationContext(),"w = " + w + "x = " + x +" y = "+ y, Toast.LENGTH_LONG).show();
         if (x < 0 || x > w /* * den*/ || y < 0 || y > w /* * den*/)
             i = -1;
         else {
@@ -348,7 +348,7 @@ public class ZoomableView extends ViewGroup {
                     final float density = getResources().getDisplayMetrics().density;
                     if (mode == DRAG)
                     {
-                        Toast.makeText(getContext().getApplicationContext()," action move", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext().getApplicationContext()," action move", Toast.LENGTH_LONG).show();
 
                         matrix.set(savedMatrix);
 
