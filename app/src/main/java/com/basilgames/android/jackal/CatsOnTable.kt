@@ -42,17 +42,21 @@ class CatsOnTable {
         val catList = db.getCats()
         Log.d(TAG, "saveToDB: size ${catList.size}")
 
+
         for (cat in catList)
         {
             val catView: ImageView = tableView.findViewById(cat.viewId)
 
-            Log.d(TAG, "\tid ${cat.viewId} l ${catView.left} t ${catView.top} w ${catView.width} h ${catView.height}")
+                Log.d(
+                    TAG,
+                    "\tid ${cat.viewId} l ${catView.left} t ${catView.top} w ${catView.width} h ${catView.height}"
+                )
 
-            cat.leftMargin = (catView.left/den).toInt() //  / den
-            cat.topMargin = (catView.top/den).toInt()
-            cat.h = (catView.height/den).toInt()
-            cat.w = (catView.width/den).toInt()
-            db.updateCat(cat)
+                cat.leftMargin = (catView.left / den).toInt() //  / den
+                cat.topMargin = (catView.top / den).toInt()
+                cat.h = (catView.height / den).toInt()
+                cat.w = (catView.width / den).toInt()
+                db.updateCat(cat)
 
             //Log.d(TAG, "UPDATE   catView.leftMargin ${cat.leftMargin} cat.h ${cat.h}")
         }

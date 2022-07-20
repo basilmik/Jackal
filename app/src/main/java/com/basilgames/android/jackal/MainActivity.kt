@@ -19,12 +19,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var tableView: ZoomableView
 
-    private lateinit var addViewButton: Button
+    private lateinit var addViewButton: ImageButton
     private lateinit var addGridButton: Button
     private lateinit var deleteButton: Button
-    //private lateinit var loadButton: Button
+    private lateinit var closeAboutButton: Button
     private lateinit var saveButton: Button
-    private lateinit var textView: TextView
+    private lateinit var textView: ScrollView
 
     lateinit var tileGrid: TileGrid
     lateinit var cats: CatsOnTable
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         tableView = findViewById(R.id.table_view)
         addViewButton = findViewById(R.id.addview)
-        //addGridButton = findViewById(R.id.addgrid)
+        closeAboutButton = findViewById(R.id.close_about)
         //deleteButton = findViewById(R.id.deletegrid)
         //loadButton = findViewById(R.id.loadgrid)
         textView = findViewById(R.id.textView)
@@ -65,18 +65,18 @@ class MainActivity : AppCompatActivity() {
 
         if (tileGrid.getSize() > 0)
         {
+            Toast.makeText(applicationContext, "${tileGrid.getSize()}", Toast.LENGTH_LONG).show()
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
             tileGrid.loadFromDB(sideLen, sideLen)
             tableView.addChild(tileGrid, 0, 0, minwh, minwh)
 
             //if (cats.getSize() > 0)
-                cats.loadFromDB(tableView)
+            cats.loadFromDB(tableView)
         }
         else
         {
-            tileGrid.removeAllViews()
-            tableView.removeView(tileGrid)
+            Toast.makeText(applicationContext, "DB is empty", Toast.LENGTH_LONG).show()
 
             tileGrid.columnCount = 13
             tileGrid.rowCount = 13
@@ -88,9 +88,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        /*addGridButton.setOnClickListener {
-            createNewTileGrid()
-        }*/
+        closeAboutButton.setOnClickListener {
+            textView.visibility = View.INVISIBLE
+            closeAboutButton.isClickable = false
+        }
 
        /* deleteButton.setOnClickListener {
             tileGrid.clearDB()
@@ -124,16 +125,16 @@ class MainActivity : AppCompatActivity() {
         addViewButton.setOnClickListener {
             val imageView = ImageView(this@MainActivity)
 
-            imageView.setImageResource(R.drawable.cat_square)
+            imageView.setImageResource(R.drawable.coin2)
 
             imageView.id = ImageView.generateViewId()
 
             val x: Int = 1 * 25
             val y: Int = 1 * 25 + 50
             //count++
-
-            addImageView(imageView, x, y, 10, 10)
-            cats.addCatToDB(imageView, R.drawable.cat_square)
+            val den = resources.displayMetrics.density
+            addImageView(imageView, x, y, (sideLen/(den*2)).toInt(), (sideLen/(den*2)).toInt())
+            cats.addCatToDB(imageView, R.drawable.coin2)
 
         }
 
@@ -146,14 +147,12 @@ class MainActivity : AppCompatActivity() {
         val imageView2 = ImageView(this@MainActivity)
         val imageView3 = ImageView(this@MainActivity)
         val imageView4 = ImageView(this@MainActivity)
-        var x = 0
-        var y = 0
+
         imageView1.setImageResource(R.drawable.ship1)
         imageView1.id = ImageView.generateViewId()
         val den = resources.displayMetrics.density
-        x = (100/den).toInt()
-        y = ((minwh + 100)/den).toInt()
-
+        var x = (100/den).toInt()
+        val y = ((minwh + 100)/den).toInt()
         addImageView(imageView1, x, y, (sideLen/den).toInt(), (sideLen/den).toInt())
         cats.addCatToDB(imageView1, R.drawable.ship1)
 
@@ -179,12 +178,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
+        super.onPause()
         if (tileGrid.getSize() != 0) tileGrid.saveToDB()
         val den = resources.displayMetrics.density
-        if (cats.getSize() != 0) cats.saveToDB(tableView, den)
-        super.onPause()
+        cats.saveToDB(tableView, den)
 
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -195,12 +196,14 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_new_game -> {
-                textView.text = "Restart"
+                //textView.text = "Restart"
                 createNewTileGrid()
                 return true
             }
             R.id.action_rules -> {
-                textView.text = "Rules"
+                //textView.text = getText(R.string.rules)
+                textView.visibility = View.VISIBLE
+                closeAboutButton.isClickable = true
                 return true
             }
             R.id.action_delete -> {
