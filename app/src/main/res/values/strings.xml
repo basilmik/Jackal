@@ -2,6 +2,6 @@
     <string name="app_name">Jackal</string>
     <string name="rules"> </string>
     <string name="warning_text">All function that begin with a dot are for app development purposes.\nUse at your own risk.</string>
-    <string name="rules_text">To flip a tile use long press.\nTo move things around use simple drag.\nThere\'s also pinch and double-tap zoom.\nTo add a coin press on the chest</string>
+    <string name="rules_text">Press restart to begin a new game.\nTo flip a tile use long press.\nTo move things around use simple drag.\nThere\'s also pinch and double-tap zoom.\nTo add a coin press on the chest.</string>
 
 </resources>
