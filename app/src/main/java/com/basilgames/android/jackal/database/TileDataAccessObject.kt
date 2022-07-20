@@ -9,13 +9,7 @@ import java.util.*
 interface TileDataAccessObject {
 
     @Query("SELECT * FROM tile")
-    fun getTiles(): LiveData<List<Tile>>
-
-    @Query("SELECT * FROM tile")
     fun getTiles2(): List<Tile>
-
-    @Query("SELECT * FROM tile WHERE id=(:id)")
-    fun getTile(id: UUID): LiveData<Tile?>
 
     @Query("SELECT * FROM tile WHERE `row` = (:i) AND `col` = (:j)")
     fun getTile2(i: Int, j: Int): Tile
